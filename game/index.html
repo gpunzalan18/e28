@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="game.css">
+  <script src="game.js" defer></script>
+</head>
+
+<body>
+  <h1>Let's Play the Mystery Game! </h1>
+  <p>Pick a category:</p>
+
+  <div>
+
+    <label><input type="radio" name="category" value="fruits"> Fruits </label>
+    <label><input type="radio" name="category" value="animals"> Animals </label>
+    <label><input type="radio" name="category" value="color"> Colors </label>
+    <button id="createBtn" type="submit">Generate Puzzle</button>
+  </div>
+
+  <div id="secondView">
+    <h2 id='puzzle'></h2>
+    <h4 id='guesses'></h4>
+    <div id="inputView">
+      <input type="text" id="inputValue">
+      <button id="guessBtn" type="submit">Guess a Letter</button>
+      <button id="solveBtn" type="submit">Solve the Puzzle</button>
+    </div>
+    <h4 id='puzzleSolved'></h4>
+  </div>
+
+
+
+
+</body>
+
+</html>
