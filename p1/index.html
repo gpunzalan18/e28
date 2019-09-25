@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+  <script src="data/data.js" defer></script>
+  <script src="scripts.js" defer></script>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <h1>{{title}}</h1>
+    <p>{{instruction}}</p>
+    <div>
+      <label v-for="item in categories">
+        <input type="radio" name="category" :value="item.id" v-model="picked">{{item.id}}
+      </label>
+      <button id="createBtn" type="submit" @click="enable">{{buttons.generate}}</button>
+    </div>
+
+    <div id="secondView" v-if="showSecondView">
+      <p>This is for second section of game.</p>
+    </div>
+  </div>
+</body>
+
+</html>
