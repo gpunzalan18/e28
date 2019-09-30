@@ -1,9 +1,6 @@
-let appData = {
+let content = {
   title: "Project 1 - Mystery Game in Vue.js",
   instruction: "Pick a category:",
-  showSecondView: false,
-  randomWord: null,
-  picked: null,
   categories: [
     {
       id: 'fruits',

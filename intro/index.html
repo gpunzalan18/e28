@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang='en'>
+
+<head>
+  <title>Intro</title>
+  <meta charset='utf-8'>
+
+  <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js' defer></script>
+  <script src='scripts.js' defer></script>
+
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Intro</h1>
+
+  <!-- '#app' indicates the element that the vuew instance is mounted onto -->
+  <!-- v-cloak is a directive that waits until Vue has been mounted prior to rendering the page -->
+  <div id='app' v-cloak>
+    <div>
+      <!-- v-model is a directive that bind to data property playerName -->
+      <label>What’s your name? <input type='text' v-model='playerName'></label>
+      <!-- v-if & v-else  to display content conditionally -->
+      <!-- {{ }} mustache brackets is used for interpolation (data binding) -->
+      <p v-if='playerName'>Player: {{ playerName }}</p>
+      <p v-else>Enter your player name to begin the game.</p>
+    </div>
+
+    <!-- v-if  doesn't add to the DOM when condition is false -->
+    <template v-if="results">
+      <p v-if="results == 'tie' ">It was a tie.</p>
+      <p v-else-if="results == 'win' ">You won!</p>
+      <p v-else>You lost.</p>
+    </template>
+
+    <!-- v-show adds to the DOM and keeps it hidden via CSS if condition is false -->
+    <!-- note: v-show doesn't work on template tags -->
+    <div v-show='playerName'>
+      <!-- v-on: registers an event (shorthand is @ symbol) -->
+      <!-- .number and .enter are modifiers -->
+      <label>What’s your guess? <input type='text' v-model.number='guess' @keyup.enter="submitGuess "></label>
+      <button @click='submitGuess'>Guess</button>
+      <ul>
+        <!-- v-for is used to create multiple elements -->
+        <li v-for='(thisGuess, index) in guesses'>Guess #{{index + 1}}: {{ thisGuess }}</li>
+      </ul>
+    </div>
+
+    <ul>
+      <!-- Iterating through an object with v-for -->
+      <li v-for='(setting, property, index) in settings'>{{index}}: {{ setting }} --- {{ property }}</li>
+    </ul>
+
+    <ul>
+      <!-- Iterating through an array of objects with v-for -->
+      <li v-for='guessDetail in guessesDetailed'>{{ guessDetail.guess }} was too {{guessDetail.result}}</li>
+    </ul>
+
+    <!-- High-Low game examples  -->
+    <!-- w/o the key attribute, vue reuses the active input box when toggled. It doens't reset -->
+    <!-- Having the key attribute treats the element to be independent of each other -->
+    <div v-if='gameType === "numeric"'>
+      <label>Enter a guess between 1 and 10</label>
+      <input type='text' placeholder='Your numeric guess' key="numeric">
+    </div>
+    <div v-else>
+      <label>Enter a guess between A and Z</label>
+      <input type='text' placeholder='Your alphabetic guess' key="alphabetical">
+    </div>
+
+    <button v-on:click='gameType = (gameType == "numeric") ? "alphabetical" : "numeric"'>Toggle mode</button>
+  </div>
+</body>
+
+</html>

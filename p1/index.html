@@ -4,23 +4,31 @@
 <head>
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
-  <script src="data/data.js" defer></script>
+  <script src="data/content.js" defer></script>
   <script src="scripts.js" defer></script>
 </head>
 
 <body>
   <div id="app" v-cloak>
-    <h1>{{title}}</h1>
-    <p>{{instruction}}</p>
+    <h1>{{content.title}}</h1>
+    <p>{{content.instruction}}</p>
     <div>
-      <label v-for="item in categories">
-        <input type="radio" name="category" :value="item.id" v-model="picked">{{item.id}}
+      <label v-for="(item, index) in content.categories">
+        <input type="radio" name="category" v-bind:value="index" v-model="picked"
+          @keyup.enter="generatePuzzle">{{item.id}}
       </label>
-      <button id="createBtn" type="submit" @click="enable">{{buttons.generate}}</button>
+      <button id="createBtn" type="submit" @click="generatePuzzle">{{content.buttons.generate}}</button>
     </div>
 
     <div id="secondView" v-if="showSecondView">
-      <p>This is for second section of game.</p>
+      <h2 v-show="puzzle"> {{puzzle}}</h2>
+      <h4 id='guesses'></h4>
+      <div id="inputView">
+        <input type="text" v-model="guessedLetter">
+        <button type="submit" @click="guessLetter">Guess a Letter</button>
+        <button id="solveBtn" type="submit">Solve the Puzzle</button>
+      </div>
+      <h4 id='puzzleSolved'></h4>
     </div>
   </div>
 </body>
