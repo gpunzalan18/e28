@@ -22,13 +22,13 @@
 
     <div id="secondView" v-if="showSecondView">
       <h2 v-show="puzzle"> {{puzzle}}</h2>
-      <h4 id='guesses'></h4>
-      <div id="inputView">
+      <h4><span v-for="guess in guesses">{{guess}} </span></h4>
+      <div v-show="inputView">
         <input type="text" v-model="guessedLetter">
         <button type="submit" @click="guessLetter">Guess a Letter</button>
-        <button id="solveBtn" type="submit">Solve the Puzzle</button>
+        <button type="submit" @click="solvePuzzle">Solve the Puzzle</button>
       </div>
-      <h4 id='puzzleSolved'></h4>
+      <h4 v-show="userMsg">{{userMsg}}</h4>
     </div>
   </div>
 </body>

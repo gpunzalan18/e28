@@ -6,7 +6,11 @@ let app = new Vue({
     randomWord: null,
     picked: null,
     puzzle: '',
-    guessedLetter: null
+    guessedLetter: null,
+    guesses: ['x', 'y'],
+    invalidAttempt: 0,
+    userMsg: '',
+    inputView: true
   },
   methods: {
     generatePuzzle() {
@@ -32,11 +36,42 @@ let app = new Vue({
           }
         }
         this.puzzle = display;
+
+        if (foundIndex.length === 0) {
+          this.guesses.push(this.guessedLetter);
+          this.invalidAttempt += 1;
+        }
+        this.isWinner();
         this.guessedLetter = null;
+      }
+    },
+    solvePuzzle() {
+      if (this.guessedLetter.length >= 1 && this.guessedLetter == this.randomWord.toLowerCase()) {
+        this.userMsg = this.content.messages.win;
+        this.inputView = false;
+        this.guesses = [];
+        this.puzzle = this.guessedLetter;
+      } else {
+        this.userMsg = this.content.messages.incorrect;
       }
     },
     reset() {
       this.puzzle = '';
+      this.userMsg = '';
+      this.guesses = [];
+      this.inputView = true;
+      this.guessedLetter = '';
+      this.invalidAttempt = 0;
+    },
+    isWinner() {
+      if (!this.puzzle.includes('_')) {
+        this.userMsg = this.content.messages.win;
+        this.inputView = false;
+      } else if (this.invalidAttempt >= 6) {
+        this.userMsg = this.content.messages.lose;
+        this.puzzle = this.randomWord;
+        this.inputView = false;
+      }
     }
   }
 })

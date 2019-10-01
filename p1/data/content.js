@@ -19,5 +19,10 @@ let content = {
     generate: "Generate Puzzle",
     guess: "Guess a Letter",
     solve: "Solve the Puzzle"
+  },
+  messages: {
+    win: "Congratulations, you solved the puzzle!",
+    lose: "You\'ve entered 6 invalid letters. Better luck next time!",
+    incorrect: "Your answer is incorrect, try again!"
   }
 }
