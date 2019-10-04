@@ -1,7 +1,7 @@
 # Project 1 - Mystery Game in Vue.js  
 
 - By Grace Punzalan
-- Production URL: p1.singlepage.tech
+- Production URL: http://p1.singlepage.tech
 
 # Outside Resources
 - Vue.js 
