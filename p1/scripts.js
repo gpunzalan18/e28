@@ -36,8 +36,8 @@ let app = new Vue({
     guessLetter() {
       let foundIndex = [];
       let display = '';
-      this.userMsg = '';
       if (this.guessedLetter.length === 1) {
+        this.userMsg = '';
         for (let i = 0; i < this.randomWord.length; i++) {
           if (this.guessedLetter == this.randomWord.toLowerCase()[i]) {
             display += this.guessedLetter + ' ';
