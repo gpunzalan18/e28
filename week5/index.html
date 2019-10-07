@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang='en'>
+
+<head>
+  <title>Week 5 Examples</title>
+  <meta charset='utf-8'>
+
+  <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js' defer></script>
+  <script src='scripts.js' defer></script>
+
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+
+    img {
+      width: 30px;
+      display: block;
+    }
+  </style>
+
+</head>
+
+<body>
+  <h1>Week 5 Examples</h1>
+  <ul>
+    <li>attribute binding with v-bind</li>
+  </ul>
+  <div id="app" v-cloak>
+    <div>
+      <label for="answer">What is 20 + 15?</label>
+      <input type="text" id="answer" v-model="answer" @keyup.enter="submitAnswer">
+    </div>
+
+    <img :src="'images/' + imageSrc" :alt="imageAlt">
+  </div>
+
+
+</body>
+
+</html>

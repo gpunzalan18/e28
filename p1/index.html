@@ -14,8 +14,7 @@
     <p>{{content.instruction}}</p>
     <div>
       <label v-for="(item, index) in content.categories">
-        <input type="radio" name="category" v-bind:value="index" v-model="picked"
-          @keyup.enter="generatePuzzle">{{item.id}}
+        <input type="radio" name="category" :value="index" v-model="picked" @keyup.enter="generatePuzzle">{{item.id}}
       </label>
       <button id="createBtn" type="submit" @click="generatePuzzle">{{content.buttons.generate}}</button>
     </div>
@@ -24,11 +23,11 @@
       <h2 v-show="puzzle"> {{puzzle}}</h2>
       <h4><span v-for="guess in guesses">{{guess}} </span></h4>
       <div v-show="inputView">
-        <input type="text" v-model="guessedLetter">
-        <button type="submit" @click="guessLetter">Guess a Letter</button>
-        <button type="submit" @click="solvePuzzle">Solve the Puzzle</button>
+        <input type="text" v-model="guessedLetter" @keyup.enter="guessEnter">
+        <button type="submit" @click="guessLetter">{{content.buttons.guess}}</button>
+        <button type="submit" @click="solvePuzzle">{{content.buttons.solve}}</button>
       </div>
-      <h4 v-show="userMsg">{{userMsg}}</h4>
+      <h4 v-show="userMsg" :style="'color:' + msgColor">{{userMsg}}</h4>
     </div>
   </div>
 </body>
