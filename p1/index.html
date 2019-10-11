@@ -11,23 +11,32 @@
 <body>
     <div id="app" v-cloak>
         <h1> {{content.title}} </h1><br>
+
         <h3> {{content.instruction}} </h3>
         <label v-for="(item, index) in content.categories">
-            <input type="radio" name="category" :value="index" v-model="pickedCategory"
-                @keyup.enter="generatePuzzle">{{item.id}}
+            <input type="radio" :value="index" v-model="pickedCategory">{{item.id}}
         </label>
-        <button type="submit" @click="generatePuzzle">{{content.buttons.generate}} </button>
 
-        <div v-if="secondView">
+        <!-- Generated game based on chosen category -->
+        <div v-if="gameView">
             <h2 v-if="puzzle">{{puzzle}}</h2>
             <h4><span v-for="guess in guesses">{{guess}} </span></h4>
-            <div v-show="inputView">
-                <label for="userInput"> {{content.submitLabel}}
-                    <input id="userInput" type="text" v-model="userInput" @keyup.enter="guess">
+            <div v-if="inputView">
+                <label for="userInput">{{content.submitLabel}}<br><br>
+                    <input id="userInput" type="text" v-model.trim="userInput" @keyup.enter="guess">
                 </label>
-                <button type="submit" @click="guess">{{content.buttons.submit}}</button>
+                <button type="submit" @click="guess"> {{content.buttons.submit}}</button>
+                <h4> {{this.content.strikes}} {{6 - invalidAttempt}}</h4>
             </div>
-            <h4 v-show="userMsg" :style="'color:' + msgColor">{{userMsg}}</h4>
+            
+            <!-- Validation messages to user -->
+            <div v-if="userMsg" :class="{ green: correctAnswer, red: !correctAnswer }">
+                <h4 v-if="userMsg == 'win'">{{this.content.messages.win}}</h4>
+                <h4 v-else-if="userMsg == 'lose'">{{this.content.messages.lose}}</h4>
+                <h4 v-else-if="userMsg == 'incorrect'">{{this.content.messages.incorrect}}</h4>
+                <h4 v-else-if="userMsg == 'invalid'">{{this.content.messages.invalid}}</h4>
+            </div>
+
         </div>
     </div>
 </body>

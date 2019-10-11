@@ -1,7 +1,8 @@
 let content = {
     title: "Project 1 - Mystery Game in Vue.js",
     instruction: "Pick a category:",
-    submitLabel: "Guess a letter or solve the puzzle:",
+    submitLabel: "Enter a letter or solve the puzzle:",
+    strikes: "Available strikes:",
     categories: [
         {
             id: 'fruits',
@@ -23,6 +24,7 @@ let content = {
     messages: {
         win: "Congratulations, you solved the puzzle!",
         lose: "You\'ve entered 6 invalid letters. Better luck next time!",
-        incorrect: "Your answer is incorrect, try again!"
+        incorrect: "Your answer is incorrect, try again!",
+        invalid: "Enter a value."
     }
 }
