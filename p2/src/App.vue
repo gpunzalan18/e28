@@ -11,11 +11,11 @@
       <h2 v-if="puzzle">{{puzzle}}</h2>
 
       <!-- Letter Display Component -->
-      <h4 v-if="guesses" class="guesses">
+      <div v-if="guesses" class="guesses">
         <letter-display v-for="(guess, index) in guesses" :key="index" :letter="guess"></letter-display>
-      </h4>
+      </div>
 
-      <div v-if="inputView">
+      <div id="inputView" v-if="inputView">
         <label for="userInput">
           {{content.submitLabel}}
           <br />
@@ -25,7 +25,7 @@
         <button type="submit" @click="guess">{{content.buttons.submit}}</button>
         <h4>{{this.content.strikes}} {{6 - invalidAttempt}}</h4>
       </div>
-  
+
       <validation-msg :userMsg="userMsg" :correctAnswer="correctAnswer"></validation-msg>
 
       <!-- Validation messages to user -->
@@ -51,7 +51,7 @@ export default {
       correctAnswer: false,
       inputView: true,
       invalidAttempt: 0,
-      guesses: null,
+      guesses: [],
       randomWord: "",
       pickedCategory: "",
       puzzle: null,
@@ -61,12 +61,13 @@ export default {
   },
   methods: {
     guess() {
+      this.userMsg = "";
       if (this.userInput.length == 1) {
         this.letterGuess();
       } else if (this.userInput.length > 1) {
         this.solvePuzzle();
       } else {
-        this.userMsg = "invalid";
+        this.userMsg = this.content.messages.invalid;
       }
     },
     letterGuess() {
@@ -89,21 +90,21 @@ export default {
     },
     solvePuzzle() {
       if (this.userInput.toLowerCase() == this.randomWord) {
-        this.userMsg = "win";
+        this.userMsg = this.content.messages.win;
         this.correctAnswer = true;
       } else {
-        this.userMsg = "incorrect";
+        this.userMsg = this.content.messages.incorrect;
         this.correctAnswer = false;
       }
       this.disable();
     },
     isWinner() {
       if (!this.puzzle.includes("_")) {
-        this.userMsg = "win";
+        this.userMsg = this.content.messages.win;
         this.correctAnswer = true;
         this.disable();
       } else if (this.invalidAttempt >= 6) {
-        this.userMsg = "lose";
+        this.userMsg = this.content.messages.lose;
         this.correctAnswer = false;
         this.disable();
       }
@@ -133,26 +134,17 @@ export default {
         this.puzzle += "_ ";
       }
     }
-  },
-  mounted: function() {
-    this.$nextTick(function() {
-      console.log("Content:", this.content);
-    });
   }
 };
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  margin-top: 30px;
-}
-
 [v-cloak] {
   display: none;
 }
 
 .guesses {
-  display: list-item;
+  display: inline-block;
+  margin-bottom: 10px;
 }
 </style>

@@ -19,11 +19,11 @@ export default {
 .letter {
   background-color: black;
   color: white;
-  width: 25px;
+  width: 30px;
   height: 25px;
   text-align: center;
   border-radius: 8px;
-  padding-top: 2px;
+  padding-top: 7px;
   float: left;
   margin-right: 10px;
 }
