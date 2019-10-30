@@ -41,8 +41,8 @@
     },
     "messages": {
         "win": "Congratulations, you solved the puzzle! Try a different category.",
-        "lose": "You've entered 6 invalid letters. Better luck next time!",
-        "incorrect": "Your answer is incorrect, try again!",
+        "lose": "You've entered 6 invalid letters. Try a different category.",
+        "incorrect": "Your answer is incorrect. Try a different category.",
         "invalid": "Enter a value."
     }
 }

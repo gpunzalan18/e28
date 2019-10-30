@@ -6,29 +6,28 @@
       <input type="radio" :value="index" v-model="pickedCategory" />
       {{item.id}}
     </label>
-
+    <br />
     <div v-if="gameView">
       <h2 v-if="puzzle">{{puzzle}}</h2>
 
       <!-- Letter Display Component -->
-      <div v-if="guesses" class="guesses">
+      <div v-if="guesses.length>0" class="guesses">
         <letter-display v-for="(guess, index) in guesses" :key="index" :letter="guess"></letter-display>
       </div>
 
-      <div id="inputView" v-if="inputView">
-        <label for="userInput">
-          {{content.submitLabel}}
-          <br />
-          <br />
-          <input id="userInput" type="text" v-model.trim="userInput" @keyup.enter="guess" />
-        </label>
-        <button type="submit" @click="guess">{{content.buttons.submit}}</button>
-        <h4>{{this.content.strikes}} {{6 - invalidAttempt}}</h4>
+      <div v-if="inputView">
+        <!-- Using events to pass data from child to parent -->
+        <user-input
+          :randomWord="randomWord"
+          :puzzle="puzzle"
+          @letter-guess="afterValidation"
+          @solve-puzzle="displayMsg"
+        ></user-input>
+        <h4>{{this.content.strikes}} {{6 - guesses.length}}</h4>
       </div>
 
+      <!-- Validation Message Component -->
       <validation-msg :userMsg="userMsg" :correctAnswer="correctAnswer"></validation-msg>
-
-      <!-- Validation messages to user -->
     </div>
   </div>
 </template>
@@ -37,10 +36,12 @@
 import content from "../data/content.json";
 import LetterDisplay from "../src/components/LetterDisplay";
 import ValidationMsg from "../src/components/ValidationMsg";
+import UserInput from "../src/components/UserInput";
 
 export default {
   name: "app",
   components: {
+    UserInput,
     LetterDisplay,
     ValidationMsg
   },
@@ -50,78 +51,37 @@ export default {
       gameView: false,
       correctAnswer: false,
       inputView: true,
-      invalidAttempt: 0,
-      guesses: [],
       randomWord: "",
       pickedCategory: "",
       puzzle: null,
       userInput: "",
-      userMsg: ""
+      userMsg: "",
+      guesses: []
     };
   },
   methods: {
-    guess() {
-      this.userMsg = "";
-      if (this.userInput.length == 1) {
-        this.letterGuess();
-      } else if (this.userInput.length > 1) {
-        this.solvePuzzle();
-      } else {
-        this.userMsg = this.content.messages.invalid;
-      }
-    },
-    letterGuess() {
-      if (!this.randomWord.includes(this.userInput)) {
-        this.guesses.push(this.userInput.toLowerCase());
-        this.invalidAttempt += 1;
-      } else {
-        let display = "";
-        this.userMsg = "";
-        for (let i = 0; i < this.randomWord.length; i++) {
-          if (this.userInput.toLowerCase() == this.randomWord[i]) {
-            display += this.userInput.toLowerCase() + " ";
-          } else {
-            display += this.puzzle[i * 2] + " ";
-          }
-        }
-        this.puzzle = display;
-      }
-      this.isWinner();
-    },
-    solvePuzzle() {
-      if (this.userInput.toLowerCase() == this.randomWord) {
-        this.userMsg = this.content.messages.win;
-        this.correctAnswer = true;
-      } else {
-        this.userMsg = this.content.messages.incorrect;
-        this.correctAnswer = false;
-      }
-      this.disable();
-    },
-    isWinner() {
-      if (!this.puzzle.includes("_")) {
-        this.userMsg = this.content.messages.win;
-        this.correctAnswer = true;
-        this.disable();
-      } else if (this.invalidAttempt >= 6) {
-        this.userMsg = this.content.messages.lose;
-        this.correctAnswer = false;
-        this.disable();
-      }
-      this.userInput = "";
-    },
-    disable() {
-      this.puzzle = this.randomWord;
-      this.inputView = false;
-    },
     initialize() {
       this.puzzle = "";
       this.userMsg = "";
-      this.userInput = "";
       this.guesses = [];
       this.inputView = true;
       this.gameView = true;
-      this.invalidAttempt = 0;
+    },
+    afterValidation(invalidInput, puzzleView) {
+      if (!puzzleView) {
+        this.guesses.push(invalidInput);
+      } else {
+        this.puzzle = puzzleView;
+      }
+    },
+    displayMsg(correctAnswer, userMsg, inputViewToggle) {
+      if (!inputViewToggle) {
+        this.inputView = inputViewToggle;
+        this.puzzle = this.randomWord;
+      }
+
+      this.correctAnswer = correctAnswer;
+      this.userMsg = userMsg;
     }
   },
   watch: {
@@ -144,7 +104,7 @@ export default {
 }
 
 .guesses {
-  display: inline-block;
-  margin-bottom: 10px;
+  display: flex;
+  margin-bottom: 25px;
 }
 </style>
