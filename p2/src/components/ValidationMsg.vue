@@ -43,5 +43,11 @@ img {
   vertical-align: middle;
 }
 
+.green {
+  color: green;
+}
 
+.red {
+  color: red;
+}
 </style>
