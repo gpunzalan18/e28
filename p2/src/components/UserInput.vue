@@ -87,6 +87,7 @@ export default {
         this.$emit("solve-puzzle", this.correctAnswer, this.userMsg, false);
         this.disable();
       }
+      this.$emit("solve-puzzle", null, null, true);
       this.userInput = "";
     },
     disable() {
