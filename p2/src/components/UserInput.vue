@@ -1,11 +1,9 @@
 <template>
   <div>
-    <label for="inputVal">
-      {{content.submitLabel}}
-      <br />
-      <br />
-      <input id="inputVal" type="text" v-model.trim="userInput" @keyup.enter="guess" />
-    </label>
+    <slot></slot>
+    <br />
+    <br />
+    <input id="inputVal" type="text" v-model.trim="userInput" @keyup.enter="guess" />
     <button type="submit" @click="guess">{{content.buttons.submit}}</button>
   </div>
 </template>
@@ -19,8 +17,10 @@ export default {
     return {
       content: content,
       userInput: "",
-      guesses: [],
-      invalidAttempt: 0
+      invalidAttempt: 0,
+      newPuzzleView: "",
+      userMsg: null,
+      correctAnswer: true
     };
   },
   props: {
@@ -35,20 +35,22 @@ export default {
   },
   methods: {
     guess() {
-      this.userMsg = "";
+      this.reset();
       if (this.userInput.length == 1) {
         this.letterGuess();
       } else if (this.userInput.length > 1) {
         this.solvePuzzle();
       } else {
-        this.userMsg = this.content.messages.invalid;
-        this.$emit("solve-puzzle", this.correctAnswer, this.userMsg, true);
+        this.$emit(
+          "display-validation-msg",
+          !this.correctAnswer,
+          this.content.messages.enterValue
+        );
       }
     },
     letterGuess() {
       if (!this.randomWord.includes(this.userInput)) {
-        this.$emit("letter-guess", this.userInput.toLowerCase(), null);
-
+        this.$emit("invalid-input", this.userInput.toLowerCase());
         this.invalidAttempt += 1;
       } else {
         let display = "";
@@ -60,39 +62,52 @@ export default {
             display += this.puzzle[i * 2] + " ";
           }
         }
-        this.$emit("letter-guess", null, display);
+        this.$emit("new-puzzle-view", display);
+        this.newPuzzleView = display;
       }
       this.isWinner();
     },
     solvePuzzle() {
       if (this.userInput.toLowerCase() == this.randomWord) {
-        this.userMsg = this.content.messages.win;
-        this.correctAnswer = true;
+        this.$emit(
+          "display-validation-msg",
+          this.correctAnswer,
+          this.content.messages.puzzleSolved
+        );
       } else {
-        this.userMsg = this.content.messages.incorrect;
-        this.correctAnswer = false;
+        this.$emit(
+          "display-validation-msg",
+          !this.correctAnswer,
+          this.content.messages.incorrectAnswer
+        );
       }
-      this.$emit("solve-puzzle", this.correctAnswer, this.userMsg, false);
       this.disable();
     },
     isWinner() {
-      if (!this.puzzle.includes("_")) {
-        this.userMsg = this.content.messages.win;
-        this.correctAnswer = true;
-        this.$emit("solve-puzzle", this.correctAnswer, this.userMsg, false);
+      if (!this.newPuzzleView.includes("_")) {
+        this.$emit(
+          "display-validation-msg",
+          this.correctAnswer,
+          this.content.messages.puzzleSolved
+        );
         this.disable();
       } else if (this.invalidAttempt >= 6) {
-        this.userMsg = this.content.messages.lose;
-        this.correctAnswer = false;
-        this.$emit("solve-puzzle", this.correctAnswer, this.userMsg, false);
+        this.$emit(
+          "display-validation-msg",
+          !this.correctAnswer,
+          this.content.messages.invalidAttempts
+        );
         this.disable();
       }
-      this.$emit("solve-puzzle", null, null, true);
       this.userInput = "";
     },
     disable() {
-      this.puzzle = this.randomWord;
-      this.inputView = false;
+      this.$emit("disable-input-view");
+    },
+    reset() {
+      this.$emit("display-validation-msg", null, null);
+      this.newPuzzleView = this.puzzle;
+      this.userMsg = "";
     }
   }
 };

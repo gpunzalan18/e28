@@ -6,19 +6,18 @@
 </template>
 
 <script>
-import content from "../../data/content.json";
-
 export default {
   name: "ValidationMsg",
-  data: function() {
-    return {
-      messages: content.messages
-    };
-  },
   props: {
-    correctAnswer: Boolean,
-    userMsg: String
-  }
+    correctAnswer: {
+      type: Boolean,
+      default: null
+    },
+    userMsg: {
+      type: String,
+      default: null
+    }
+  },
 };
 </script>
 
@@ -33,7 +32,7 @@ div {
 }
 
 .green {
-  color: green;
+  color: #056a13;
 }
 
 .red {

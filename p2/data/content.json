@@ -40,9 +40,9 @@
         "submit": "Submit"
     },
     "messages": {
-        "win": "Congratulations, you solved the puzzle! Try a different category.",
-        "lose": "You've entered 6 invalid letters. Try a different category.",
-        "incorrect": "Your answer is incorrect. Try a different category.",
-        "invalid": "Enter a value."
+        "puzzleSolved": "Congratulations, you solved the puzzle! Try a different category.",
+        "invalidAttempts": "You've entered 6 invalid letters. Try a different category.",
+        "incorrectAnswer": "Your answer is incorrect. Try a different category.",
+        "enterValue": "Enter a value."
     }
 }

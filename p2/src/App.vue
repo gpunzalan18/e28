@@ -9,20 +9,21 @@
     <br />
     <div v-if="gameView">
       <h2 v-if="puzzle">{{puzzle}}</h2>
-
-      <!-- Letter Display Component -->
-      <div v-if="guesses.length>0" class="guesses">
+      <div v-if="guesses" class="guesses">
         <letter-display v-for="(guess, index) in guesses" :key="index" :letter="guess"></letter-display>
       </div>
 
       <div v-if="inputView">
-        <!-- Using events to pass data from child to parent -->
         <user-input
           :randomWord="randomWord"
           :puzzle="puzzle"
-          @letter-guess="afterValidation"
-          @solve-puzzle="displayMsg"
-        ></user-input>
+          @invalid-input="invalidInput"
+          @new-puzzle-view="newPuzzleView"
+          @display-validation-msg="displayValidationMsg"
+          @disable-input-view="disableInputView"
+        >
+          <label>{{content.submitLabel}}</label>
+        </user-input>
         <h4>{{this.content.strikes}} {{6 - guesses.length}}</h4>
       </div>
 
@@ -54,34 +55,32 @@ export default {
       randomWord: "",
       pickedCategory: "",
       puzzle: null,
-      userInput: "",
-      userMsg: "",
+      userMsg: null,
       guesses: []
     };
   },
   methods: {
     initialize() {
       this.puzzle = "";
-      this.userMsg = "";
+      this.userMsg = null;
       this.guesses = [];
       this.inputView = true;
       this.gameView = true;
     },
-    afterValidation(invalidInput, puzzleView) {
-      if (!puzzleView) {
-        this.guesses.push(invalidInput);
-      } else {
-        this.puzzle = puzzleView;
-      }
+    // Event methods
+    newPuzzleView(view) {
+      this.puzzle = view;
     },
-    displayMsg(correctAnswer, userMsg, inputViewToggle) {
-      if (!inputViewToggle) {
-        this.inputView = inputViewToggle;
-        this.puzzle = this.randomWord;
-      }
-
+    invalidInput(invalidInput) {
+      this.guesses.push(invalidInput);
+    },
+    displayValidationMsg(correctAnswer, userMsg) {
       this.correctAnswer = correctAnswer;
       this.userMsg = userMsg;
+    },
+    disableInputView() {
+      this.inputView = false;
+      this.puzzle = this.randomWord;
     }
   },
   watch: {
@@ -99,7 +98,6 @@ export default {
 </script>
 
 <style>
-
 [v-cloak] {
   display: none;
 }
