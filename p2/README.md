@@ -1,5 +1,5 @@
 
-# Project 2
+# Project 2 - Mystery Word Game
 - By: Grace Punzalan
 - Production URL: <http://p2.singlepage.tech>
 
@@ -19,3 +19,12 @@
 
 
 ## Notes for instructor
+- Please note that there are 3 sections of the game that I converted into components:
+    - displaying invalid letters
+    - input section (which includes the label, input box, and button to practice emitting events to parent)
+    - displaying validation message when users hit submit
+- Additonally, here are 4 validation messages that a user can get:
+    - "Congratulations, you solved the puzzle! Try a different category."
+    - "You've entered 6 invalid letters. Try a different category."
+    - "Your answer is incorrect. Try a different category."
+    - "Enter a value."
