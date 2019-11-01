@@ -18,12 +18,9 @@ export default {
 .letter {
   background-color: black;
   color: white;
-  width: 30px;
-  height: 25px;
   text-align: center;
   border-radius: 8px;
-  padding-top: 7px;
-  float: left;
+  padding: 5px 15px;
   margin-right: 10px;
 }
 </style>

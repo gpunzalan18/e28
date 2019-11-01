@@ -24,7 +24,7 @@
         >
           <label>{{content.submitLabel}}</label>
         </user-input>
-        <h4>{{this.content.strikes}} {{6 - guesses.length}}</h4>
+        <h4>{{this.content.strikes}} {{strikesLeft}}</h4>
       </div>
 
       <!-- Validation Message Component -->
@@ -58,6 +58,11 @@ export default {
       userMsg: null,
       guesses: []
     };
+  },
+  computed: {
+    strikesLeft: function() {
+      return 6 - this.guesses.length;
+    }
   },
   methods: {
     initialize() {
@@ -101,9 +106,18 @@ export default {
 [v-cloak] {
   display: none;
 }
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 
 .guesses {
-  display: flex;
+  display: block;
+
   margin-bottom: 25px;
 }
 </style>

@@ -15,6 +15,11 @@
 
 - Issues/Troubleshooting
     - [Issue with modifying props directly from child component](https://michaelnthiessen.com/avoid-mutating-prop-directly)
+    - [Centering incorrect letters](https://www.w3.org/Style/Examples/007/center.en.html)
+
+- Issues Forum
+    - [using 'require' to dispaly images (Issue #95)](https://github.com/susanBuck/e28-fall19/issues/95)
+    - [using computed to avoid calculation from the template (Issue #104) ](https://github.com/susanBuck/e28-fall19/issues/104)
 
 
 
