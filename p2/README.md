@@ -33,3 +33,18 @@
     - "You've entered 6 invalid letters. Try a different category."
     - "Your answer is incorrect. Try a different category."
     - "Enter a value."
+- I also created the images used in the application using Google Drawing. 
+- Lastly, I used some styling code that came when creating the application using Vue CLI:
+
+```
+        <style>
+        #app {
+          font-family: 'Avenir', Helvetica, Arial, sans-serif;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          text-align: center;
+          color: #2c3e50;
+          margin-top: 60px;
+        }
+        </style>
+```
