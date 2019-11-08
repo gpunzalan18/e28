@@ -1,21 +1,24 @@
 <template>
   <div id="app">
     <img id="logo" alt="Vue logo" src="./assets/images/zipfoods-logo.png" />
-    <p>ZipFoods is your one-stop-shop for convenient online grocery shopping in the greater Boston area.</p>
-    <show-featured category="frozen"></show-featured>
-    <show-products></show-products>
+    <nav>
+      <ul>
+        <li v-for="link in links" :key="link">
+          <router-link exact :to="{ name: link }">{{ link }}</router-link>
+        </li>
+      </ul>
+    </nav>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import ShowProducts from "./components/ShowProducts";
-import ShowFeatured from "./components/ShowFeatured";
-
 export default {
   name: "app",
-  components: {
-    ShowProducts,
-    ShowFeatured
+  data: function() {
+    return {
+      links: ["home", "products", "categories"]
+    };
   }
 };
 </script>
