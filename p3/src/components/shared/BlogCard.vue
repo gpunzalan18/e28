@@ -1,7 +1,9 @@
 <template>
-  <div class="col-md-4">
-    <img :src="image" :alt="title" style="width: 100%; padding-top: 10px; padding-bottom: 20px;" />
-    <h5 style="color:gray">10/11/2019</h5>
+  <div
+    class="col-md-4 col-sm-6 col-xs-6"
+    style="min-height: 575px; max-height: 530px; height: 100%"
+  >
+    <img :src="image" :alt="title" style="width: 100%; padding-top: 10px; " />
     <h3>{{title}}</h3>
     <p>{{shortDesc}}</p>
     <div class="btn-group btn-group-sm" role="group" aria-label="...">
@@ -37,13 +39,4 @@ export default {
 </script>
 
 <style scoped>
-.button {
-  margin-top: 35px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-radius: 5px;
-  background-color: gray;
-}
 </style>

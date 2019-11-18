@@ -39,4 +39,5 @@ export default {
 
 <style scoped>
 @import "../../assets/css/main.css";
+
 </style>

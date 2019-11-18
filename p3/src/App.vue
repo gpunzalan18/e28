@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container" style="width: 82%">
+  <div id="app" class="container" style="width: 82% align-items: flex-start">
     <h1 class="col-md-12 text-center">Grace's Blog</h1>
     <p
       class="col-md-12 text-center"
@@ -40,8 +40,8 @@ export default {
 </script>
 
 <style>
-/* #app {
-  margin-top: 60px;
-} */
+#app {
+  margin-top: 25px;
+}
 @import "./assets/css/main.css";
 </style>
