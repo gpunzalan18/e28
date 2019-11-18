@@ -30,8 +30,7 @@ export default {
         this.cardDetails.id +
         ".jpg"),
       title: this.cardDetails.title,
-      shortDesc: this.cardDetails.shortDesc,
-      post: this.cardDetails.post
+      shortDesc: this.cardDetails.shortDesc
     };
   }
 };

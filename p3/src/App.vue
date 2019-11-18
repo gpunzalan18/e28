@@ -6,13 +6,8 @@
     >I started this blog to keep track of all places I've been to. Maybe five years from now, I could reminisce a little.</p>
     <nav>
       <ul class="nav nav-tabs">
-        <li v-for="link in dynamicNav" :key="link">
-          <router-link
-            v-if="link=='blogpost'"
-            exact
-            :to="{ name: link, params: {'id': id} }"
-          >{{ link | capitalize }}</router-link>
-          <router-link v-else exact :to="{ name: link }">{{ link | capitalize }}</router-link>
+        <li v-for="link in links" :key="link">
+          <router-link exact :to="{ name: link }">{{ link | capitalize }}</router-link>
         </li>
       </ul>
     </nav>
@@ -26,23 +21,13 @@ export default {
   props: {
     id: {
       type: String,
-      default: "1"
+      default: null
     }
   },
   data: function() {
     return {
-      links: ["home", "favorites", "blogpost"],
-      displayBlogpost: true
+      links: ["home", "favorites"]
     };
-  },
-  computed: {
-    dynamicNav: function() {
-      let links = ["home", "favorites"];
-      if (this.displayBlogpost) {
-        links.push("blogpost");
-      }
-      return links;
-    }
   },
   filters: {
     capitalize: function(value) {

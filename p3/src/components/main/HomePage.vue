@@ -8,6 +8,7 @@
 
 <script>
 import BlogCard from "./../shared/BlogCard";
+import * as session from "../../session";
 import { content } from "./../../data/content";
 
 const axios = require("axios");
@@ -29,6 +30,7 @@ export default {
         "http://my-json-server.typicode.com/gpunzalan18/e28-p3-blogposts/blogDetails"
       )
       .then(response => {
+        session.setBlogDetails(response.data);
         this.blogDetails = response.data;
       });
   }

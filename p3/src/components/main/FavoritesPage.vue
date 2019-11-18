@@ -3,7 +3,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "FavoritesPage",
+  data: function() {
+    return {
+      blogDetails: null
+    };
+  }
+};
 </script>
 
 <style>
