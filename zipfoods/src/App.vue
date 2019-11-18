@@ -19,6 +19,16 @@ export default {
     return {
       links: ["home", "products", "categories"]
     };
+  },
+  mounted: function() {
+    // Store a key/value pair
+    localStorage.setItem("name", "Bob");
+
+    // Retrieve (by key)
+    console.log(localStorage.getItem("name"));
+
+    // Remove (by key) key/value pair
+    localStorage.removeItem("key");
   }
 };
 </script>

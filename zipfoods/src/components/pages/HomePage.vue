@@ -7,10 +7,10 @@
 </template>
 
 <script>
-import ShowFeatured from "./ShowFeatured";
+import ShowFeatured from "./../ShowFeatured";
 
 export default {
-  name: "ShowHome",
+  name: "HomePage",
   components: {
     ShowFeatured
   },
