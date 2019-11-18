@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <h1 class="col-md-12 text-center">{{content.main.homePage.title}}</h1>
-    <div v-for="item in blogPosts" :key="item.id">
+  <div class="page">
+    <div v-for="item in blogDetails" :key="item.id">
       <blog-card :cardDetails="item"></blog-card>
     </div>
   </div>
@@ -10,7 +9,8 @@
 <script>
 import BlogCard from "./../shared/BlogCard";
 import { content } from "./../../data/content";
-import { blogPosts } from "./../../data/blogposts";
+
+const axios = require("axios");
 
 export default {
   name: "HomePage",
@@ -20,14 +20,21 @@ export default {
   data: function() {
     return {
       content: content,
-      blogPosts: blogPosts
+      blogDetails: null
     };
   },
-  created: function() {
-    console.log(this.blogPosts);
+  mounted: function() {
+    axios
+      .get(
+        "http://my-json-server.typicode.com/gpunzalan18/e28-p3-blogposts/blogDetails"
+      )
+      .then(response => {
+        this.blogDetails = response.data;
+      });
   }
 };
 </script>
 
 <style scoped>
+@import "../../assets/css/main.css";
 </style>
