@@ -1,5 +1,5 @@
 export let blogDetails = {};
-export let favoritesById = [1, 2, 3];
+export let favoritesById = [];
 
 export function setBlogDetails(data) {
     blogDetails = data;
@@ -10,6 +10,11 @@ export function getBlogDetails() {
 
 export function getBlogDetailsById(index) {
     return blogDetails[index - 1]
+}
+
+export function addToFavorites(id) {
+    favoritesById.push(id)
+    saveFavorites()
 }
 
 export function saveFavorites() {
