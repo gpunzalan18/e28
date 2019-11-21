@@ -1,11 +1,8 @@
 <template>
   <div class="page">
+    <div v-if="favoritesById.length<1">You do not have favorite posts.</div>
     <div v-for="item in favoriteBlogDetails" :key="item.id">
-      <blog-card
-        :cardDetails="item"
-        pageSource="favorites"
-        @remove-favorite-card="updateFavorites()"
-      ></blog-card>
+      <blog-card :cardDetails="item" @remove-favorite-card="updateFavorites()"></blog-card>
     </div>
   </div>
 </template>
@@ -23,24 +20,21 @@ export default {
   data: function() {
     return {
       favoriteBlogDetails: null,
-      blogDetails: null
+      blogDetails: null,
+      favoritesById: session.retrieveFavorites()
     };
   },
   methods: {
     setfavoriteBlogDetails: function(data) {
-      console.log(data);
       this.favoriteBlogDetails = data;
     },
     updateFavorites: function() {
-      console.log("updateFavorites");
-      let favoritesById = session.retrieveFavorites();
-      console.log("favoritesById ", favoritesById);
+      this.favoritesById = session.retrieveFavorites();
       let arr = [];
-      for (var i = 0; i < favoritesById.length; i++) {
-        let index = favoritesById[i];
+      for (var i = 0; i < this.favoritesById.length; i++) {
+        let index = this.favoritesById[i];
         var blogDetail = this.blogDetails[index - 1];
         arr.push(blogDetail);
-        console.log(favoritesById.length);
       }
       this.favoriteBlogDetails = arr;
     }

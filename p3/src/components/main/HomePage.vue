@@ -1,14 +1,13 @@
 <template>
   <div class="page" v-if="blogDetails">
     <div v-for="item in blogDetails" :key="item.id">
-      <blog-card :cardDetails="item" pageSource="home" ></blog-card>
+      <blog-card :cardDetails="item"></blog-card>
     </div>
   </div>
 </template>
 
 <script>
 import BlogCard from "./../shared/BlogCard";
-import { content } from "./../../data/content";
 const axios = require("axios");
 
 export default {
@@ -18,7 +17,6 @@ export default {
   },
   data: function() {
     return {
-      content: content,
       blogDetails: null
     };
   },

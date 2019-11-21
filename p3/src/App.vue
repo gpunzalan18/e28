@@ -16,8 +16,6 @@
 </template>
 
 <script>
-// import * as session from "./session";
-
 export default {
   name: "app",
   props: {
@@ -44,6 +42,12 @@ export default {
 <style>
 #app {
   margin-top: 25px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+.gold {
+  background-color: gold;
+}
+
+
 @import "./assets/css/main.css";
 </style>

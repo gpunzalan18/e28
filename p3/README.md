@@ -27,6 +27,7 @@
 
 - Content 
     - [My old tumblr account](https://spraysomegrace.tumblr.com/)
+    - [Blog categories](https://bitrebels.com/social/most-popular-blog-categories-google/)
 
 ## Notes for instructor
 *Any notes for me to refer to while grading; if none, omit this section.*

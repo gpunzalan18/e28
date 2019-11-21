@@ -1,21 +1,20 @@
 <template>
   <div v-if="blogPost" class="page">
     <h3>{{blogPost.title}}</h3>
+    <div class="col-md-6">
+      <img :src="image" class="post" />
+    </div>
 
     <div class="col-md-6">
       <h5 style="color:gray">10/11/2019</h5>
       <p>{{blogPost.shortDesc}}</p>
       <p>{{body}}</p>
     </div>
-    <div class="col-md-6">
-      <img :src="image" class="post" />
-    </div>
   </div>
 </template>
 
 <script>
-import { content } from "./../../data/content";
-import { blogPosts } from "./../../data/blogposts";
+import blogPosts from "../../data/blogposts.json";
 const axios = require("axios");
 
 export default {
@@ -23,11 +22,15 @@ export default {
   props: ["id"],
   data: function() {
     return {
-      content: content,
       blogPost: null,
       image: require("../../assets/images/image" + this.id + ".jpg"),
-      body: blogPosts[this.id - 1].post
+      blogPosts: blogPosts.data
     };
+  },
+  computed: {
+    body: function() {
+      return this.blogPosts[this.id - 1].post;
+    }
   },
   methods: {
     setBlogPost: function(data) {
@@ -41,8 +44,7 @@ export default {
           this.id
       )
       .then(response => {
-        console.log(response);
-        this.setBlogPost(response);
+        this.setBlogPost(response.data);
       });
   }
 };

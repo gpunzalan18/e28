@@ -1,6 +1,6 @@
 <template>
-  <div class="col-md-4 col-sm-6 col-xs-6" style="min-height: 575px; height: 100%">
-    <img :src="image" :alt="title" style="width: 100%; padding-top: 10px; " />
+  <div class="blogCard col-md-4 col-sm-6 col-xs-6">
+    <img :src="image" :alt="title" class="cardImg" />
     <h3>{{title}}</h3>
     <p>{{shortDesc}}</p>
     <div class="btn-group btn-group-sm" role="group" aria-label="...">
@@ -24,21 +24,7 @@ import * as session from "../../session";
 
 export default {
   name: "BlogCard",
-  props: ["cardDetails", "pageSource"],
-  methods: {
-    addToFavorites() {
-      if (this.favorited) {
-        this.removeFromFave(this.cardDetails.id);
-      } else {
-        session.addToFavorites(this.cardDetails.id);
-        this.favorited = true;
-      }
-    },
-    removeFromFave: function(id) {
-      session.removeFromFavorites(id);
-      this.$emit("remove-favorite-card");
-    }
-  },
+  props: ["cardDetails"],
   data: function() {
     return {
       image: require("../../assets/images/image" +
@@ -50,14 +36,27 @@ export default {
       favorited: null
     };
   },
+  methods: {
+    addToFavorites() {
+      if (this.favorited) {
+        this.removeFromFave(this.cardDetails.id);
+        this.favorited = false;
+      } else {
+        session.addToFavorites(this.cardDetails.id);
+        this.favorited = true;
+      }
+    },
+    removeFromFave: function(id) {
+      session.removeFromFavorites(id);
+      this.$emit("remove-favorite-card");
+    }
+  },
   computed: {
     rightBtn: function() {
-      if (this.pageSource == "home") {
-        return "Add to Favorites";
-      } else if (this.pageSource == "favorites") {
+      if (this.favorited) {
         return "Remove from Favorites";
       } else {
-        return null;
+        return "Add to Favorites";
       }
     }
   },
@@ -72,5 +71,15 @@ export default {
 <style scoped>
 .gold {
   background-color: gold;
+}
+
+.blogCard {
+  min-height: 575px;
+  height: 100%;
+}
+
+.cardImg {
+  width: 100%;
+  padding-top: 10px;
 }
 </style>
