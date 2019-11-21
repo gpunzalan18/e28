@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4 col-sm-6 col-xs-6" style="min-height: 550px; height: 100%">
+  <div class="col-md-4 col-sm-6 col-xs-6" style="min-height: 575px; height: 100%">
     <img :src="image" :alt="title" style="width: 100%; padding-top: 10px; " />
     <h3>{{title}}</h3>
     <p>{{shortDesc}}</p>
