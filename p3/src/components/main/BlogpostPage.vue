@@ -1,23 +1,22 @@
 <template>
   <div v-if="blogPost" class="page">
-    <h3>{{title}}</h3>
+    <h3>{{blogPost.title}}</h3>
 
     <div class="col-md-6">
       <h5 style="color:gray">10/11/2019</h5>
-      <p>{{shortDesc}}</p>
+      <p>{{blogPost.shortDesc}}</p>
       <p>{{body}}</p>
     </div>
     <div class="col-md-6">
-      <img :src="image" style="width: 100%; padding-top: 10px; padding-bottom: 20px;" />
+      <img :src="image" class="post" />
     </div>
-
   </div>
 </template>
 
 <script>
 import { content } from "./../../data/content";
 import { blogPosts } from "./../../data/blogposts";
-import * as session from "../../session";
+const axios = require("axios");
 
 export default {
   name: "blogpost",
@@ -25,19 +24,34 @@ export default {
   data: function() {
     return {
       content: content,
-      blogPost: session.getBlogDetailsById(this.id),
+      blogPost: null,
       image: require("../../assets/images/image" + this.id + ".jpg"),
-      title: null,
-      body: blogPosts[this.id].post
+      body: blogPosts[this.id - 1].post
     };
   },
+  methods: {
+    setBlogPost: function(data) {
+      this.blogPost = data;
+    }
+  },
   mounted: function() {
-    this.blogPost = session.getBlogDetailsById(this.id);
-    this.title = session.getBlogDetailsById(this.id).title;
-    this.shortDesc = session.getBlogDetailsById(this.id).shortDesc;
+    axios
+      .get(
+        "http://my-json-server.typicode.com/gpunzalan18/e28-p3-blogposts/blogDetails/" +
+          this.id
+      )
+      .then(response => {
+        console.log(response);
+        this.setBlogPost(response);
+      });
   }
 };
 </script>
 
 <style>
+.post {
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
 </style>

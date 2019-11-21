@@ -1,15 +1,7 @@
-export let blogDetails = {};
-export let favoritesById = [];
+let favoritesById = [];
 
-export function setBlogDetails(data) {
-    blogDetails = data;
-}
-export function getBlogDetails() {
-    return blogDetails
-}
-
-export function getBlogDetailsById(index) {
-    return blogDetails[index - 1]
+function saveFavorites() {
+    localStorage.setItem('favoritesById', JSON.stringify(favoritesById))
 }
 
 export function addToFavorites(id) {
@@ -17,11 +9,13 @@ export function addToFavorites(id) {
     saveFavorites()
 }
 
-export function saveFavorites() {
-    localStorage.setItem('favoritesById', JSON.stringify(favoritesById))
+export function removeFromFavorites(id) {
+    let index = favoritesById.indexOf(id)
+    favoritesById.splice(index, 1)
+    saveFavorites()
 }
 
 export function retrieveFavorites() {
-    saveFavorites()
-    return localStorage.getItem('favoritesById')
+    let favoritesById = localStorage.getItem('favoritesById');
+    return (favoritesById) ? JSON.parse(favoritesById) : [];
 }

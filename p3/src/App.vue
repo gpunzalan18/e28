@@ -16,6 +16,8 @@
 </template>
 
 <script>
+// import * as session from "./session";
+
 export default {
   name: "app",
   props: {

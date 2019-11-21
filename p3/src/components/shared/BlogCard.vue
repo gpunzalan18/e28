@@ -7,9 +7,14 @@
       <router-link
         type="button"
         class="btn btn-default"
-        :to="{name: 'blogpost', params:{'id': cardDetails.id}}"
+        :to="{name: 'blogpost', params:{ 'id': cardDetails.id, 'cardDetails': cardDetails}}"
       >Read More</router-link>
-      <button type="button" class="btn btn-default" @click="addToFavorites">Add to Favorites</button>
+      <button
+        type="button"
+        class="btn btn-default"
+        :class="{gold: favorited}"
+        @click="addToFavorites"
+      >{{rightBtn}}</button>
     </div>
   </div>
 </template>
@@ -19,15 +24,19 @@ import * as session from "../../session";
 
 export default {
   name: "BlogCard",
-  props: {
-    cardDetails: {
-      type: Object,
-      default: null
-    }
-  },
+  props: ["cardDetails", "pageSource"],
   methods: {
     addToFavorites() {
-      session.addToFavorites(this.cardDetails.id);
+      if (this.favorited) {
+        this.removeFromFave(this.cardDetails.id);
+      } else {
+        session.addToFavorites(this.cardDetails.id);
+        this.favorited = true;
+      }
+    },
+    removeFromFave: function(id) {
+      session.removeFromFavorites(id);
+      this.$emit("remove-favorite-card");
     }
   },
   data: function() {
@@ -36,11 +45,32 @@ export default {
         this.cardDetails.id +
         ".jpg"),
       title: this.cardDetails.title,
-      shortDesc: this.cardDetails.shortDesc
+      shortDesc: this.cardDetails.shortDesc,
+      favoritesById: session.retrieveFavorites(),
+      favorited: null
     };
+  },
+  computed: {
+    rightBtn: function() {
+      if (this.pageSource == "home") {
+        return "Add to Favorites";
+      } else if (this.pageSource == "favorites") {
+        return "Remove from Favorites";
+      } else {
+        return null;
+      }
+    }
+  },
+  mounted: function() {
+    if (this.favoritesById.includes(this.cardDetails.id)) {
+      this.favorited = true;
+    }
   }
 };
 </script>
 
 <style scoped>
+.gold {
+  background-color: gold;
+}
 </style>

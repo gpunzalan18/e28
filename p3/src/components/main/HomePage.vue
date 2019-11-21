@@ -1,16 +1,14 @@
 <template>
-  <div class="page">
+  <div class="page" v-if="blogDetails">
     <div v-for="item in blogDetails" :key="item.id">
-      <blog-card :cardDetails="item"></blog-card>
+      <blog-card :cardDetails="item" pageSource="home" ></blog-card>
     </div>
   </div>
 </template>
 
 <script>
 import BlogCard from "./../shared/BlogCard";
-import * as session from "../../session";
 import { content } from "./../../data/content";
-
 const axios = require("axios");
 
 export default {
@@ -30,7 +28,6 @@ export default {
         "http://my-json-server.typicode.com/gpunzalan18/e28-p3-blogposts/blogDetails"
       )
       .then(response => {
-        session.setBlogDetails(response.data);
         this.blogDetails = response.data;
       });
   }
@@ -39,5 +36,4 @@ export default {
 
 <style scoped>
 @import "../../assets/css/main.css";
-
 </style>

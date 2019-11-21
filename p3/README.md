@@ -15,6 +15,7 @@
 - MDN Javavascript
     - [import statements](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
     - [export statements](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export)
+    - [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
 
 - Bootstrap/Styling
     - [Getting started with Bootstrap](https://getbootstrap.com/docs/3.4/getting-started/)

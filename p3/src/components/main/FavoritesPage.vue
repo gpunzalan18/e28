@@ -1,15 +1,19 @@
 <template>
   <div class="page">
-    <div v-if="favoriteBlogDetails.length<1">You have no favorite blog posts.</div>
     <div v-for="item in favoriteBlogDetails" :key="item.id">
-      <blog-card :cardDetails="item"></blog-card>
+      <blog-card
+        :cardDetails="item"
+        pageSource="favorites"
+        @remove-favorite-card="updateFavorites()"
+      ></blog-card>
     </div>
   </div>
 </template>
 
 <script>
-import * as session from "../../session";
 import BlogCard from "./../shared/BlogCard";
+const axios = require("axios");
+import * as session from "../../session";
 
 export default {
   name: "FavoritesPage",
@@ -18,21 +22,38 @@ export default {
   },
   data: function() {
     return {
-      favoritesById: session.retrieveFavorites(),
-      blogDetails: session.getBlogDetails()
+      favoriteBlogDetails: null,
+      blogDetails: null
     };
   },
-  computed: {
-    favoriteBlogDetails: function() {
+  methods: {
+    setfavoriteBlogDetails: function(data) {
+      console.log(data);
+      this.favoriteBlogDetails = data;
+    },
+    updateFavorites: function() {
+      console.log("updateFavorites");
+      let favoritesById = session.retrieveFavorites();
+      console.log("favoritesById ", favoritesById);
       let arr = [];
-      for (var i = 0; i < this.blogDetails.length; i++) {
-        var blogDetail = this.blogDetails[i];
-        if (this.favoritesById.includes(blogDetail.id)) {
-          arr.push(blogDetail);
-        }
+      for (var i = 0; i < favoritesById.length; i++) {
+        let index = favoritesById[i];
+        var blogDetail = this.blogDetails[index - 1];
+        arr.push(blogDetail);
+        console.log(favoritesById.length);
       }
-      return arr;
+      this.favoriteBlogDetails = arr;
     }
+  },
+  mounted: function() {
+    axios
+      .get(
+        "http://my-json-server.typicode.com/gpunzalan18/e28-p3-blogposts/blogDetails"
+      )
+      .then(response => {
+        this.blogDetails = response.data;
+        this.updateFavorites();
+      });
   }
 };
 </script>
