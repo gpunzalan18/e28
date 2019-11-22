@@ -6,7 +6,11 @@ function saveFavorites() {
 
 export function addToFavorites(id) {
     let arr = localStorage.getItem('favoritesById');
-    if (arr && !arr.includes(id)) {
+    if (!arr) {
+        favoritesById.push(id)
+        localStorage.setItem('favoritesById', JSON.stringify(favoritesById))
+    }
+    else if (arr && !arr.includes(id)) {
         favoritesById.push(id)
         saveFavorites()
     }
