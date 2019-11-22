@@ -13,7 +13,7 @@
         type="button"
         class="btn btn-default"
         :class="{gold: favorited}"
-        @click="addToFavorites"
+        @click="detectFavorites"
       >{{rightBtn}}</button>
     </div>
   </div>
@@ -37,7 +37,7 @@ export default {
     };
   },
   methods: {
-    addToFavorites() {
+    detectFavorites() {
       if (this.favorited) {
         this.removeFromFave(this.cardDetails.id);
         this.favorited = false;

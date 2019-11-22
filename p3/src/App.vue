@@ -45,7 +45,7 @@ export default {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .gold {
-  background-color: gold;
+  background-color: gold !important;
 }
 
 

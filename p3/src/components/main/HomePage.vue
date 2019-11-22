@@ -3,6 +3,7 @@
     <div v-for="item in blogDetails" :key="item.id">
       <blog-card :cardDetails="item"></blog-card>
     </div>
+    <div class="a" v-bind:class="['b', 'c', { d : true }]"></div>
   </div>
 </template>
 

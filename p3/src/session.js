@@ -5,8 +5,11 @@ function saveFavorites() {
 }
 
 export function addToFavorites(id) {
-    favoritesById.push(id)
-    saveFavorites()
+    let arr = localStorage.getItem('favoritesById');
+    if (arr && !arr.includes(id)) {
+        favoritesById.push(id)
+        saveFavorites()
+    }
 }
 
 export function removeFromFavorites(id) {
