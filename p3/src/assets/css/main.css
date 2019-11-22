@@ -15,3 +15,12 @@ button a {
     color: black !important;
     text-decoration: none !important;
 }
+
+#app {
+    margin-top: 25px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.gold {
+    background-color: gold !important;
+}

@@ -7,7 +7,7 @@
       <router-link
         type="button"
         class="btn btn-default"
-        :to="{name: 'blogpost', params:{ 'id': cardDetails.id, 'cardDetails': cardDetails}}"
+        :to="{name: 'blogpost', params:{'id': cardDetails.id}}"
       >Read More</router-link>
       <button
         type="button"
@@ -36,6 +36,15 @@ export default {
       favorited: null
     };
   },
+  computed: {
+    rightBtn: function() {
+      if (this.favorited) {
+        return "Remove from Favorites";
+      } else {
+        return "Add to Favorites";
+      }
+    }
+  },
   methods: {
     detectFavorites() {
       if (this.favorited) {
@@ -49,15 +58,6 @@ export default {
     removeFromFave: function(id) {
       session.removeFromFavorites(id);
       this.$emit("remove-favorite-card");
-    }
-  },
-  computed: {
-    rightBtn: function() {
-      if (this.favorited) {
-        return "Remove from Favorites";
-      } else {
-        return "Add to Favorites";
-      }
     }
   },
   mounted: function() {

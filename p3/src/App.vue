@@ -40,14 +40,5 @@ export default {
 </script>
 
 <style>
-#app {
-  margin-top: 25px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-.gold {
-  background-color: gold !important;
-}
-
-
 @import "./assets/css/main.css";
 </style>
