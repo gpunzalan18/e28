@@ -1,28 +1,22 @@
-let favoritesById = [];
+let favoritesById = localStorage.getItem('favoritesById') ? JSON.parse(localStorage.getItem('favoritesById')) : [];
 
 function saveFavorites() {
-    localStorage.setItem('favoritesById', JSON.stringify(favoritesById))
+    localStorage.setItem('favoritesById', JSON.stringify(favoritesById));
 }
 
 export function addToFavorites(id) {
-    let arr = localStorage.getItem('favoritesById');
-    if (!arr) {
-        favoritesById.push(id)
-        localStorage.setItem('favoritesById', JSON.stringify(favoritesById))
-    }
-    else if (arr && !arr.includes(id)) {
-        favoritesById.push(id)
-        saveFavorites()
+    if (!favoritesById.includes(id)) {
+        favoritesById.push(id);
+        saveFavorites();
     }
 }
 
 export function removeFromFavorites(id) {
-    let index = favoritesById.indexOf(id)
-    favoritesById.splice(index, 1)
-    saveFavorites()
+    let index = favoritesById.indexOf(id);
+    favoritesById.splice(index, 1);
+    saveFavorites();
 }
 
 export function retrieveFavorites() {
-    let favoritesById = localStorage.getItem('favoritesById');
-    return (favoritesById) ? JSON.parse(favoritesById) : [];
+    return favoritesById;
 }
