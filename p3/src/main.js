@@ -13,6 +13,8 @@ const routes = [
     { path: '/', component: HomePage, name: "home" },
     { path: '/favorites', component: FavoritesPage, name: "favorites" },
     { path: '/blogpost/:id', component: BlogpostPage, name: "blogpost", props: true },
+    { path: '*', component: HomePage, name: "home" }
+
 ]
 
 const router = new VueRouter({
