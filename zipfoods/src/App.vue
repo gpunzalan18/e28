@@ -5,6 +5,7 @@
       <ul>
         <li v-for="link in links" :key="link">
           <router-link exact :to="{ name: link }">{{ link }}</router-link>
+          <span v-if="link == 'cart'">({{ cartCount}})</span>
         </li>
       </ul>
     </nav>
@@ -17,15 +18,22 @@ export default {
   name: "app",
   data: function() {
     return {
-      links: ["home", "products", "categories"]
+      links: ["home", "products", "categories", "cart"]
     };
   },
+  computed: {
+    cartCount: function() {
+      return this.$store.state.cartCount;
+    }
+  },
   mounted: function() {
+    this.$store.commit("setCartCount", localStorage.getItem("name"));
+    this.$store.dispatch("setProducts");
     // Store a key/value pair
     localStorage.setItem("name", "Bob");
 
     // Retrieve (by key)
-    console.log(localStorage.getItem("name"));
+    console.log();
 
     // Remove (by key) key/value pair
     localStorage.removeItem("key");

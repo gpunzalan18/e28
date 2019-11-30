@@ -31,6 +31,8 @@ export default {
     addToCart: function(productId) {
       let cart = new Cart();
       cart.add(productId);
+
+      this.$store.commit("updateCartCount", 1);
     }
   },
   mounted() {

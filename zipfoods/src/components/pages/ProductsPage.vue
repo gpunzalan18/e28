@@ -9,8 +9,6 @@
 <script>
 import ShowProduct from "./../ShowProduct";
 
-const axios = require("axios");
-
 export default {
   name: "ProductsPage",
   components: {
@@ -18,18 +16,15 @@ export default {
   },
   data: function() {
     return {
-      products: null
+      //   products: null
     };
   },
-  mounted: function() {
-    axios
-      .get(
-        "https://my-json-server.typicode.com/gpunzalan18/e28-zipfoods/products"
-      )
-      .then(response => {
-        this.products = response.data;
-      });
-  }
+  computed: {
+    products: function() {
+      return this.$store.state.products;
+    }
+  },
+  mounted: function() {}
 };
 </script>
 

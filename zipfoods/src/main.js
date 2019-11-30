@@ -5,6 +5,7 @@ import HomePage from './components/pages/HomePage.vue';
 import ProductsPage from './components/pages/ProductsPage.vue';
 import CategoriesPage from './components/pages/CategoriesPage.vue';
 import ProductPage from './components/pages/ProductPage.vue';
+import store from './store'
 
 Vue.use(VueRouter);
 
@@ -14,7 +15,8 @@ const routes = [
     { path: '/', component: HomePage, name: "home" },
     { path: '/products', component: ProductsPage, name: "products" },
     { path: '/product/:id', component: ProductPage, name: "product", props: true },
-    { path: '/categories', component: CategoriesPage, name: "categories" }
+    { path: '/categories', component: CategoriesPage, name: "categories" },
+    { path: '/cart', component: CategoriesPage, name: "cart" },
 ]
 
 const router = new VueRouter({
@@ -24,5 +26,6 @@ const router = new VueRouter({
 
 new Vue({
     router: router,
+    store: store,
     render: h => h(App),
 }).$mount('#app')
