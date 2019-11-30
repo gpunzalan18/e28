@@ -1,0 +1,26 @@
+.page {
+    padding: 15px 15px;
+}
+
+ul li a {
+    color:black !important;
+}
+
+.router-link-active {
+    background-color: #c6c6c6 !important;
+    color: black !important;
+}
+
+button a {
+    color: black !important;
+    text-decoration: none !important;
+}
+
+#app {
+    margin-top: 25px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.gold {
+    background-color: gold !important;
+}
