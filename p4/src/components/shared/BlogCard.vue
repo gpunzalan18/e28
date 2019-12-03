@@ -54,10 +54,10 @@ export default {
         session.addToFavorites(this.cardDetails.id);
         this.favorited = true;
       }
+      this.$store.commit("setFavoriteBlogDetails");
     },
     removeFromFave: function(id) {
       session.removeFromFavorites(id);
-      this.$emit("remove-favorite-card");
     }
   },
   mounted: function() {

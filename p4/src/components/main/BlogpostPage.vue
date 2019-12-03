@@ -1,13 +1,13 @@
 <template>
-  <div v-if="blogPost" class="page">
-    <h3>{{blogPost.title}}</h3>
+  <div v-if="blogDetail" class="page">
+    <h3>{{blogDetail.title}}</h3>
     <div class="col-md-6">
       <img :src="image" class="post" />
     </div>
 
     <div class="col-md-6">
       <h5 style="color:gray">{{date}}</h5>
-      <p>{{blogPost.shortDesc}}</p>
+      <p>{{blogDetail.shortDesc}}</p>
       <p>{{body}}</p>
       <button
         type="button"
@@ -21,7 +21,6 @@
 
 <script>
 import blogPosts from "../../data/blogposts.json";
-const axios = require("axios");
 import * as session from "../../session";
 
 export default {
@@ -29,7 +28,6 @@ export default {
   props: ["id"],
   data: function() {
     return {
-      blogPost: null,
       image: require("../../assets/images/image" + this.id + ".jpg"),
       blogPosts: blogPosts.data,
       favorited: false,
@@ -37,6 +35,9 @@ export default {
     };
   },
   computed: {
+    blogDetail: function() {
+      return this.$store.state.blogModule.blogDetail;
+    },
     body: function() {
       return this.blogPosts[this.id - 1].post;
     },
@@ -52,38 +53,28 @@ export default {
     }
   },
   methods: {
-    setBlogPost: function(data) {
-      this.blogPost = data;
-    },
     detectFavorite: function() {
       if (this.favorited) {
         this.favorited = false;
-        session.removeFromFavorites(this.blogPost.id);
+        session.removeFromFavorites(this.blogDetail.id);
       } else {
-        session.addToFavorites(this.blogPost.id);
+        session.addToFavorites(this.blogDetail.id);
         this.favorited = true;
       }
+      this.$store.commit("setFavoriteBlogDetails");
     }
   },
-  mounted: function() {
-    axios
-      .get(
-        "http://my-json-server.typicode.com/gpunzalan18/e28-p3-blogposts/blogDetails/" +
-          this.id
-      )
-      .then(response => {
-        this.setBlogPost(response.data);
-        this.favoritesById = session.retrieveFavorites();
-
-        if (this.favoritesById.includes(response.data.id)) {
-          this.favorited = true;
-        }
-      });
+  beforeMount: function() {
+    this.$store.dispatch("setBlogDetail", this.id);
+    this.favoritesById = session.retrieveFavorites();
+    if (this.favoritesById.includes(this.id)) {
+      this.favorited = true;
+    }
   }
 };
 </script>
 
-<style>
+<style scoped>
 .post {
   width: 100%;
   padding-top: 10px;

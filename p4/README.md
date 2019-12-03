@@ -32,3 +32,6 @@
 - Content 
     - [My old tumblr account](https://spraysomegrace.tumblr.com/)
     - [Blog categories](https://bitrebels.com/social/most-popular-blog-categories-google/)
+
+- Issues 
+    - [export 'default' (imported as) warning](https://github.com/webpack/webpack/issues/4817)

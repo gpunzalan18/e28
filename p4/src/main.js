@@ -3,7 +3,8 @@ import App from './App.vue'
 import VueRouter from 'vue-router';
 import HomePage from './components/main/HomePage.vue';
 import FavoritesPage from './components/main/FavoritesPage.vue';
-import BlogpostPage from './components/main/BlogpostPage.vue'
+import BlogpostPage from './components/main/BlogpostPage.vue';
+import store from './store'
 
 Vue.use(VueRouter);
 
@@ -22,5 +23,6 @@ const router = new VueRouter({
 
 new Vue({
     router: router,
+    store: store,
     render: h => h(App),
 }).$mount('#app')

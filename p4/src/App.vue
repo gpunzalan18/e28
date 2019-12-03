@@ -35,6 +35,9 @@ export default {
       value = value.toString();
       return value.charAt(0).toUpperCase() + value.slice(1);
     }
+  },
+  beforeMount: function() {
+    this.$store.dispatch("setBlogData");
   }
 };
 </script>
