@@ -21,7 +21,11 @@
     ```
     In `ProductPage.vue`, try to add a `v-if`to check if the product is defined before it gets rendered. 
 
-- Adding a product to localStorage does not work.  
+- In term of using localStorage, there are 2 components that use it. 
+
+    1. Adding to cart works perfectly. 
+    
+    2. However, Adding a product to localStorage does not work.  
 
     From `AddProductPage.vue`, `product` and `formData` are both declared as `[]`. When a new product is sumitted, The `requestAdd` function is triggerded. 
 
@@ -51,9 +55,9 @@
 		}
     ```
 
-    You are pushing `this.product` to `this.formData` but at this point, both are equalt to `[]`.  As a result,  you are setting `product` in localStorage with the value `[[]]`. 
+    The student is pushing `this.product` to `this.formData` but at this point, both are equalt to `[]`.  As a result,   the `product` key in localStorage gets the value `[[]]`. 
     
-    Addtionally, The local variable `formData` is emitted but I couldn't find any other reference to the `addRecord` event. 
+    Addtionally, the local variable `formData` is emitted but I couldn't find any other reference to the `addRecord` event. 
 
 
 ### Were there any parts of the interface that you found confusing or unclear?
@@ -73,15 +77,17 @@
       </div>
     </div>
     ```
+- P3 README file indicates that searching for products by building location is fully functional. I did see some code that seemed related to this but the functionality is not available in production.  
 
 ### Are there aspects of the code that you feel were not self-evident and would benefit from comments?
+- N/A
 
 ### Are there any parts of the code that you found interesting or taught you something new?
-- In terms of styling, I actually used [Bootstrap](https://getbootstrap.com/docs/3.4/) for my project. But looking through your project, I learned that [BootstrapVue](https://bootstrap-vue.js.org/) exists. I will definitely check it out sometime!
+- In terms of styling, I actually used [Bootstrap](https://getbootstrap.com/docs/3.4/) for my project. But looking through the student's project, I learned that [BootstrapVue](https://bootstrap-vue.js.org/) exists. I will definitely check it out sometime!
 
 ### Are there any best practices discussed in course material that you feel were not addressed in the code?
-- In `AddProductPage.vue`, there's about 175 lines of code in the `template` that displays form input boxes and their corresponding labels. Using a custom input component could make the code easier to follow. 
-- There is also a good amount of commented out that needs to be cleaned up. Here is an example from `ProductPage.vue`:
+- In `AddProductPage.vue`, there's about 175 lines of code in the `template` that displays form input boxes and their corresponding labels. Using a custom input component could make the code more organized and easier to follow. 
+- There is also a good amount of commented out code that needs to be cleaned up. Here is an example from `ProductPage.vue`:
     ```css
     div.card-header {
         /* display: flex;
@@ -110,5 +116,3 @@
 
 ### Do you have any additional comments not covered in the above questions?
 - P3 code in github is not the same as in production. When P4 code was initialized, part of the commit touched P3 files. Here is [commit reference](https://github.com/nnoel2626/e28/commit/50a69e607df0651264bcc94f6a3b80497c47052f). 
-
-- To that note, the README file indicates that searching for products by building location is fully functional. However, there is no way to do so in production.  
