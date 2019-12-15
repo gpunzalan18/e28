@@ -14,6 +14,11 @@
     - Remove from favorites (via all three pages)
 
 ## Outside resources
+
+#### P4 Resources
+- [Bootstrap CSS - Form Examples](https://getbootstrap.com/docs/3.4/css/#forms-example)
+
+#### P3 Resources
 - Vue.js 
     - [Filters](https://vuejs.org/v2/guide/filters.html)
     - [Lifecycle Hooks](https://vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks)

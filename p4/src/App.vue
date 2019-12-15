@@ -9,6 +9,9 @@
         <li v-for="link in links" :key="link">
           <router-link exact :to="{ name: link }">{{ link | capitalize }}</router-link>
         </li>
+        <!-- <li class="pull-right">
+          <router-link exact :to="{ name: 'create' }">Create</router-link>
+        </li>-->
       </ul>
     </nav>
     <router-view></router-view>
@@ -26,7 +29,7 @@ export default {
   },
   data: function() {
     return {
-      links: ["home", "favorites"]
+      links: ["home", "favorites", "create"]
     };
   },
   filters: {

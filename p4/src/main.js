@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import HomePage from './components/main/HomePage.vue';
 import FavoritesPage from './components/main/FavoritesPage.vue';
 import BlogpostPage from './components/main/BlogpostPage.vue';
+import CreatePage from './components/main/CreatePage.vue'
 import store from './store'
 
 Vue.use(VueRouter);
@@ -12,7 +13,9 @@ Vue.config.productionTip = false;
 
 const routes = [
     { path: '/', component: HomePage, name: "home" },
+    { path: '/', component: HomePage, name: "cancel" },
     { path: '/favorites', component: FavoritesPage, name: "favorites" },
+    { path: '/create', component: CreatePage, name: "create" },
     { path: '/blogpost/:id', component: BlogpostPage, name: "blogpost", props: true },
 ]
 

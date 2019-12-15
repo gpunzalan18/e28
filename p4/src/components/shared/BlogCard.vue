@@ -15,6 +15,7 @@
         :class="{gold: favorited}"
         @click="detectFavorites"
       >{{rightBtn}}</button>
+      
     </div>
   </div>
 </template>
