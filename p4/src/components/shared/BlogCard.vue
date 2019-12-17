@@ -3,13 +3,16 @@
     <img :src="image" :alt="title" class="cardImg" />
     <h3>{{title}}</h3>
     <p>{{shortDesc}}</p>
-    <div class="btn-group btn-group-sm" role="group" aria-label="...">
+    <div :id="id" class="btn-group btn-group-sm" role="group" aria-label="...">
       <router-link
+        id="readMoreBtn"
         type="button"
         class="btn btn-default"
-        :to="{name: 'blogpost', params:{'id': cardDetails.id}}"
+        :to="{name: 'blogpost', params:{'id': id}}"
       >Read More</router-link>
       <button
+        i
+        d="rightBtn"
         type="button"
         class="btn btn-default"
         :class="{gold: favorited}"
@@ -43,6 +46,15 @@ export default {
       } else {
         return "Add to Favorites";
       }
+    },
+    id: function() {
+      let id = this.title
+        .toString()
+        .replace(/[,’!:.]/g, "")
+        .replace(/ /g, "-")
+        .toLowerCase();
+      console.log(id);
+      return id;
     }
   },
   methods: {

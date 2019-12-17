@@ -1,5 +1,5 @@
 <template>
-  <div v-if="blogDetail" class="page">
+  <div v-if="blogDetail" id="blogPost" class="page">
     <h3>{{blogDetail.title}}</h3>
     <div class="col-md-6">
       <img :src="image" class="post" />

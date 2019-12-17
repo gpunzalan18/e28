@@ -18,6 +18,18 @@
 #### P4 Resources
 - [Bootstrap CSS - Form Examples](https://getbootstrap.com/docs/3.4/css/#forms-example)
 - [Issue qith converting session.js to a class](https://stackoverflow.com/questions/14432165/uncaught-syntaxerror-unexpected-token-with-json-parse)
+- [Issue with running Cypress](https://github.com/cypress-io/cypress/issues/4625)
+    ```
+    Verifying Cypress can run /Library/Caches/Cypress/3.8.0/Cypress.app
+    → Cypress Version: 3.8.0
+    Cypress verification timed out.
+
+    This command failed with the following output:
+
+    /Library/Caches/Cypress/3.8.0/Cypress.app/Contents/MacOS/Cypress --no-sandbox --smoke-test --ping=792
+    ```
+- [JS - Replace](https://www.w3schools.com/jsref/jsref_replace.asp)
+- [Regex](https://www.w3schools.com/jsref/jsref_obj_regexp.asp)
 
 #### P3 Resources
 - Vue.js 
