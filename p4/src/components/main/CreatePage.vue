@@ -3,15 +3,10 @@
     <h3>Fill out the form below to create a post.</h3>
     <br />
     <br />
-    <form class="form-horizontal">
-      <div v-for="(input, index) in blogPostForm" :key="input + index">
-        <user-input :type="input.type" :label="input.label">
-          <label></label>
-        </user-input>
-      </div>
-    </form>
+
+    <user-input :blogPostForm="blogPostForm"></user-input>
     <br />
-    <div class="col-xs-9">
+    <div class="col-xs-10">
       <div class="btn-group btn-group-m pull-right" role="group" aria-label="...">
         <router-link type="button" class="btn btn-default" exact :to="{name: 'home'}">Cancel</router-link>
         <router-link
@@ -20,7 +15,6 @@
           :to="{name: 'blogpost', params:{'id': 1}}"
           :class="{gold: formValid}"
         >Save</router-link>
-        <router-link :event="formValid ? 'click' : ''" to="/path">Can't click me</router-link>
       </div>
     </div>
   </div>
@@ -37,11 +31,11 @@ export default {
   data: function() {
     return {
       blogPostForm: [
-        { type: "input", label: "Title" },
-        { type: "input", label: "Date" },
-        { type: "input", label: "Image URL" },
-        { type: "textarea", label: "Paragraph 1" },
-        { type: "textarea", label: "Paragraph 2" }
+        { id: "title", type: "input", label: "Title" },
+        { id: "date", type: "input", label: "Date" },
+        { id: "imageUrl", type: "input", label: "Image URL" },
+        { id: "shortDesc", type: "textarea", rows: "3", label: "Paragraph 1" },
+        { id: "fullPost", type: "textarea", rows: "6", label: "Paragraph 2" }
       ],
       formValid: false
     };

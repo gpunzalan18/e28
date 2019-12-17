@@ -21,7 +21,7 @@
 
 <script>
 import blogPosts from "../../data/blogposts.json";
-import * as session from "../../session";
+import * as app from "../../config";
 
 export default {
   name: "blogpost",
@@ -31,7 +31,7 @@ export default {
       image: require("../../assets/images/image" + this.id + ".jpg"),
       blogPosts: blogPosts.data,
       favorited: false,
-      favoritesById: session.retrieveFavorites()
+      favoritesById: null
     };
   },
   computed: {
@@ -54,19 +54,22 @@ export default {
   },
   methods: {
     detectFavorite: function() {
+      let localStorageHandler = new app.LocalStorageHandler();
+
       if (this.favorited) {
         this.favorited = false;
-        session.removeFromFavorites(this.blogDetail.id);
+        localStorageHandler.removeFromFavorites(this.blogDetail.id);
       } else {
-        session.addToFavorites(this.blogDetail.id);
+        localStorageHandler.addToFavorites(this.blogDetail.id);
         this.favorited = true;
       }
       this.$store.commit("setFavoriteBlogDetails");
     }
   },
   beforeMount: function() {
+    let localStorageHandler = new app.LocalStorageHandler();
     this.$store.dispatch("setBlogDetail", this.id);
-    this.favoritesById = session.retrieveFavorites();
+    this.favoritesById = localStorageHandler.retrieveFavorites();
     if (this.favoritesById.includes(this.id)) {
       this.favorited = true;
     }

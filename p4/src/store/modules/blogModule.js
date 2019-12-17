@@ -1,5 +1,4 @@
-import * as config from "../../config.js";
-import * as session from "../../session";
+import * as app from "../../config.js";
 
 export const blogModule = {
     state: {
@@ -15,7 +14,8 @@ export const blogModule = {
             state.blogDetail = payload;
         },
         setFavoriteBlogDetails(state) {
-            let favoritesById = session.retrieveFavorites();
+            let localStorageHandler = new app.LocalStorageHandler();
+            let favoritesById = localStorageHandler.retrieveFavorites();
             let arr = [];
             for (var i = 0; i < favoritesById.length; i++) {
                 let index = favoritesById[i];
@@ -27,19 +27,17 @@ export const blogModule = {
     },
     actions: {
         setBlogData: function ({ commit }) {
-            config.axios.get(config.configURL.BLOG_DETAILS_API).then(response => {
+            app.axios.get(app.configURL.BLOG_DETAILS_API).then(response => {
                 commit("setBlogDetails", response.data);
                 commit("setFavoriteBlogDetails");
             });
         },
         setBlogDetail: function ({ commit }, id) {
             commit("setBlogDetail", null)
-            config.axios.get(config.configURL.BLOG_DETAILS_API + '/' + id).then(response => {
+            app.axios.get(app.configURL.BLOG_DETAILS_API + '/' + id).then(response => {
                 commit("setBlogDetail", response.data);
             });
         },
     }
-
-
 
 }

@@ -17,6 +17,7 @@
 
 #### P4 Resources
 - [Bootstrap CSS - Form Examples](https://getbootstrap.com/docs/3.4/css/#forms-example)
+- [Issue qith converting session.js to a class](https://stackoverflow.com/questions/14432165/uncaught-syntaxerror-unexpected-token-with-json-parse)
 
 #### P3 Resources
 - Vue.js 

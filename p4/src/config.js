@@ -1,3 +1,5 @@
+export { default as LocalStorageHandler } from './LocalStore';
+
 export const axios = require('axios');
 
 export const configURL = {

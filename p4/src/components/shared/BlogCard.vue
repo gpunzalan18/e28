@@ -15,13 +15,12 @@
         :class="{gold: favorited}"
         @click="detectFavorites"
       >{{rightBtn}}</button>
-      
     </div>
   </div>
 </template>
 
 <script>
-import * as session from "../../session";
+import * as app from "../../config";
 
 export default {
   name: "BlogCard",
@@ -33,7 +32,7 @@ export default {
         ".jpg"),
       title: this.cardDetails.title,
       shortDesc: this.cardDetails.shortDesc,
-      favoritesById: session.retrieveFavorites(),
+      favoritesById: null,
       favorited: null
     };
   },
@@ -48,20 +47,24 @@ export default {
   },
   methods: {
     detectFavorites() {
+      let localStorageHandler = new app.LocalStorageHandler();
       if (this.favorited) {
         this.removeFromFave(this.cardDetails.id);
         this.favorited = false;
       } else {
-        session.addToFavorites(this.cardDetails.id);
+        localStorageHandler.addToFavorites(this.cardDetails.id);
         this.favorited = true;
       }
       this.$store.commit("setFavoriteBlogDetails");
     },
     removeFromFave: function(id) {
-      session.removeFromFavorites(id);
+      let localStorageHandler = new app.LocalStorageHandler();
+      localStorageHandler.removeFromFavorites(id);
     }
   },
-  mounted: function() {
+  mounted() {
+    let localStorageHandler = new app.LocalStorageHandler();
+    this.favoritesById = localStorageHandler.retrieveFavorites();
     if (this.favoritesById.includes(this.cardDetails.id)) {
       this.favorited = true;
     }

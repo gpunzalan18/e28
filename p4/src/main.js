@@ -5,9 +5,13 @@ import HomePage from './components/main/HomePage.vue';
 import FavoritesPage from './components/main/FavoritesPage.vue';
 import BlogpostPage from './components/main/BlogpostPage.vue';
 import CreatePage from './components/main/CreatePage.vue'
-import store from './store'
+import store from './store';
+import Vuelidate from 'vuelidate';
+
+
 
 Vue.use(VueRouter);
+Vue.use(Vuelidate)
 
 Vue.config.productionTip = false;
 
