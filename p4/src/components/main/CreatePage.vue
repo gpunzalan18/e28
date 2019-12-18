@@ -8,9 +8,16 @@
     <br />
     <div class="col-xs-10">
       <div class="btn-group btn-group-m pull-right" role="group" aria-label="...">
-        <router-link type="button" class="btn btn-default" exact :to="{name: 'home'}">Cancel</router-link>
         <router-link
           type="button"
+          id="cancelBtn"
+          class="btn btn-default"
+          exact
+          :to="{name: 'home'}"
+        >Cancel</router-link>
+        <router-link
+          type="button"
+          id="saveBtn"
           class="btn btn-default"
           :to="{name: 'blogpost', params:{'id': 1}}"
           :class="{gold: formValid}"

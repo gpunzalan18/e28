@@ -10,6 +10,7 @@
       <p>{{blogDetail.shortDesc}}</p>
       <p>{{body}}</p>
       <button
+        id="favoritesBtn"
         type="button"
         class="btn btn-default"
         :class="{gold: favorited}"

@@ -8,11 +8,10 @@
         id="readMoreBtn"
         type="button"
         class="btn btn-default"
-        :to="{name: 'blogpost', params:{'id': id}}"
+        :to="{name: 'blogpost', params:{'id': cardDetails.id}}"
       >Read More</router-link>
       <button
-        i
-        d="rightBtn"
+        id="rightBtn"
         type="button"
         class="btn btn-default"
         :class="{gold: favorited}"
