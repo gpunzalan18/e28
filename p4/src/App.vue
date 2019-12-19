@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import * as app from "./config";
 export default {
   name: "app",
   props: {
@@ -41,6 +42,14 @@ export default {
   },
   beforeMount: function() {
     this.$store.dispatch("setBlogData");
+  },
+  mounted: function() {
+    app.axios
+      .get("https://e28-blog.firebaseio.com/data.json")
+      .then(response => {
+        console.log(response);
+        // this.products = response.data.slice(1);
+      });
   }
 };
 </script>

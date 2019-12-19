@@ -30,6 +30,7 @@
     ```
 - [JS - Replace](https://www.w3schools.com/jsref/jsref_replace.asp)
 - [Regex](https://www.w3schools.com/jsref/jsref_obj_regexp.asp)
+- [Integrating firebase](https://github.com/susanBuck/e28-fall19/issues/163)
 
 #### P3 Resources
 - Vue.js 
