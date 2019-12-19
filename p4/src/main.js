@@ -23,6 +23,7 @@ const routes = [
     { path: '/favorites', component: FavoritesPage, name: "favorites" },
     { path: '/create', component: CreatePage, name: "create" },
     { path: '/blogpost/:slug', component: BlogpostPage, name: "blogpost", props: true },
+    // { path: '*', component: HomePage }
 ]
 
 const router = new VueRouter({
