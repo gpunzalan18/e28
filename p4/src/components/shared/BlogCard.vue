@@ -8,7 +8,7 @@
         id="readMoreBtn"
         type="button"
         class="btn btn-default"
-        :to="{name: 'blogpost', params:{'id': cardDetails.id}}"
+        :to="{name: 'blogpost', params:{'slug': cardDetails.slug}}"
       >Read More</router-link>
       <button
         id="rightBtn"
@@ -60,10 +60,10 @@ export default {
     detectFavorites() {
       let localStorageHandler = new app.LocalStorageHandler();
       if (this.favorited) {
-        this.removeFromFave(this.cardDetails.id);
+        this.removeFromFave(this.cardDetails.slug);
         this.favorited = false;
       } else {
-        localStorageHandler.addToFavorites(this.cardDetails.id);
+        localStorageHandler.addToFavorites(this.cardDetails.slug);
         this.favorited = true;
       }
       this.$store.commit("setFavoriteBlogDetails");
@@ -76,7 +76,7 @@ export default {
   mounted() {
     let localStorageHandler = new app.LocalStorageHandler();
     this.favoritesById = localStorageHandler.retrieveFavorites();
-    if (this.favoritesById.includes(this.cardDetails.id)) {
+    if (this.favoritesById.includes(this.cardDetails.slug)) {
       this.favorited = true;
     }
   }

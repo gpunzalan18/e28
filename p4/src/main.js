@@ -8,7 +8,9 @@ import CreatePage from './components/main/CreatePage.vue'
 import store from './store';
 import Vuelidate from 'vuelidate';
 
-
+/* eslint-disable no-unused-vars */
+const _ = require('lodash');
+/* eslint-enable no-unused-vars */
 
 Vue.use(VueRouter);
 Vue.use(Vuelidate)
@@ -20,7 +22,7 @@ const routes = [
     { path: '/', component: HomePage, name: "cancel" },
     { path: '/favorites', component: FavoritesPage, name: "favorites" },
     { path: '/create', component: CreatePage, name: "create" },
-    { path: '/blogpost/:id', component: BlogpostPage, name: "blogpost", props: true },
+    { path: '/blogpost/:slug', component: BlogpostPage, name: "blogpost", props: true },
 ]
 
 const router = new VueRouter({

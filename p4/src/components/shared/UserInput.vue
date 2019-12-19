@@ -8,7 +8,7 @@
       :class="{ 'has-error': $v.post[input.id].$error}"
     >
       <label :for="input.id" class="col-xs-2 control-label">{{ input.label }}</label>
-      <div class="col-xs-8">
+      <div class="col-xs-6">
         <input
           required
           v-if="input.type == 'input'"
@@ -24,49 +24,60 @@
           :id="input.id"
           v-model="$v.post[input.id].$model"
         ></textarea>
+        <div v-show="$v.post[input.id].$error" class="errorMsg">{{validationMsg}}</div>
       </div>
-      <div v-if="$v.post[input.id].$anyError">There is an error with this field</div>
+      <div>{{input.msg}}</div>
+    </div>
+
+    <div class="col-xs-8">
+      <button
+        type="button"
+        id="saveBtn"
+        class="btn btn-default pull-right"
+        :class="{disabled: this.$v.$invalid, green: !this.$v.$invalid }"
+        @click="handleSubmit"
+      >Save</button>
     </div>
   </form>
 </template>
 
 <script>
-import { required, minLength, maxLength } from "vuelidate/lib/validators";
+import {
+  required,
+  minLength,
+  maxLength
+  //   alphaNum
+} from "vuelidate/lib/validators";
+import { helpers } from "vuelidate/lib/validators";
 
-let post = {};
-if (process.env.NODE_ENV != "development") {
-  //   post = {
-  //     title: "Dollar Hits: Filipino Street Food in LA",
-  //     date: "12/14/2019",
-  //     imageUrl: "dollar-hits.jpg",
-  //     shortDesc:
-  //       "So this weekend, my friends and I went to Ranging Waters. The water slides were huge!! To be honest, I was really scared of them at first but I had so much fun!! Plus, Ranging Waters is just gorgeous!",
-  //     fullPost:
-  //       "I would say that my first slide, Neptune’s Fury, made me a bit more courageous for all the rides that followed. Although I was nervous at first, it felt really nice, especially with the water splashing on my face and my friends screaming. The unpredictable turns and sways of the purple tube in complete darkness were super exciting. I also we went to the the Bermuda Triangle then the High Extreme, which was an INTENSE workout because the walk to get up the slide took longer than the sliding down!"
-  //   };
-} else {
-  post = {
-    title: "",
-    date: "",
-    imageUrl: "",
-    shortDesc: "",
-    fullPost: ""
-  };
-}
+import * as app from "../../config";
+
+let post = {
+  id: 11,
+  date: "",
+  title: "",
+  slug: "",
+  shortDesc: "",
+  post: ""
+};
+
+const slugValidator = helpers.regex("alpha", /^[a-zA-Z0-9-]*$/);
+const dateValidator = helpers.regex("alpha", /^[0-9/]*$/);
+
 export default {
   name: "UserInput",
   props: ["blogPostForm"],
   data: function() {
     return {
-      validations: ["required", "minLength"],
       post: post,
-      formHasErrors: false
+      formHasErrors: false,
+      validationMsg: "Please enter a valid answer."
     };
   },
   watch: {
     "$v.$anyError": function() {
-      this.formHasErrors = this.$v.$anyError;
-      console.log(this.$v.post);
+      this.formHasErrors = this.$v.$anyError && this.$v.$anyError;
+      console.log(this.$v);
     }
   },
   validations: {
@@ -77,28 +88,56 @@ export default {
       },
       date: {
         required,
+        dateValidator,
         minLength: minLength(6)
       },
-      imageUrl: {
+      slug: {
         required,
-        minLength: minLength(4)
+        minLength: minLength(4),
+        slugValidator,
+        uniqueSlug(value) {
+          return !this.$store.getters.blogDetail(value);
+        }
       },
       shortDesc: {
         required,
         minLength: minLength(150),
         maxLength: maxLength(200)
       },
-      fullPost: {
-        required,
+      post: {
         maxLength: maxLength(500)
       }
     }
   },
+  methods: {
+    handleSubmit: function() {
+      if (!this.formHasErrors && this.$v.$anyDirty) {
+        this.post.toString().toLowerCase();
+        app.axios
+          .post(app.configURL.BLOG_DETAILS_API, this.post)
+          .then(response => {
+            this.$store.dispatch("setBlogData");
+            let key = response.data.name;
+            this.$store.commit("addPost", {
+              [key]: this.post
+            });
+            this.$router.push({
+              name: "blogpost",
+              params: { slug: this.post.slug }
+            });
+          });
+      }
+    }
+  },
   mounted: function() {
-    console.log(this.$v.post);
+    console.log(this.$v);
   }
 };
 </script>
 
-<style>
-</style>
+<style scoped>
+.errorMsg {
+  padding-top: 8px;
+  color: #a94442;
+}
+</style>>

@@ -24,3 +24,12 @@ button a {
 .gold {
     background-color: gold !important;
 }
+
+.green {
+    background-color: rgba(151, 196, 130, 0.712) !important;
+}
+
+.disable {
+    background-color: rgb(129, 127, 127) !important;
+    pointer-events: none;
+}

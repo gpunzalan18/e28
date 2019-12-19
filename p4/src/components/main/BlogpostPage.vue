@@ -4,7 +4,6 @@
     <div class="col-md-6">
       <img :src="image" class="post" />
     </div>
-
     <div class="col-md-6">
       <h5 style="color:gray">{{date}}</h5>
       <p>{{blogDetail.shortDesc}}</p>
@@ -26,10 +25,9 @@ import * as app from "../../config";
 
 export default {
   name: "blogpost",
-  props: ["id"],
+  props: ["slug"],
   data: function() {
     return {
-      image: require("../../assets/images/image" + this.id + ".jpg"),
       blogPosts: blogPosts.data,
       favorited: false,
       favoritesById: null
@@ -37,13 +35,19 @@ export default {
   },
   computed: {
     blogDetail: function() {
-      return this.$store.state.blogModule.blogDetail;
+      let blogDetail = this.$store.getters.blogDetail(this.slug);
+      return blogDetail;
+    },
+    image: function() {
+      let blogDetail = this.$store.getters.blogDetail(this.slug);
+      let image = require("../../assets/images/image" + blogDetail.id + ".jpg");
+      return image;
     },
     body: function() {
-      return this.blogPosts[this.id - 1].post;
+      return this.blogDetail.post;
     },
     date: function() {
-      return this.blogPosts[this.id - 1].date;
+      return this.blogDetail.date;
     },
     buttonLabel: function() {
       if (this.favorited) {
@@ -59,9 +63,9 @@ export default {
 
       if (this.favorited) {
         this.favorited = false;
-        localStorageHandler.removeFromFavorites(this.blogDetail.id);
+        localStorageHandler.removeFromFavorites(this.blogDetail.slug);
       } else {
-        localStorageHandler.addToFavorites(this.blogDetail.id);
+        localStorageHandler.addToFavorites(this.blogDetail.slug);
         this.favorited = true;
       }
       this.$store.commit("setFavoriteBlogDetails");
@@ -69,9 +73,9 @@ export default {
   },
   beforeMount: function() {
     let localStorageHandler = new app.LocalStorageHandler();
-    this.$store.dispatch("setBlogDetail", this.id);
+
     this.favoritesById = localStorageHandler.retrieveFavorites();
-    if (this.favoritesById.includes(this.id)) {
+    if (this.favoritesById.includes(this.slug)) {
       this.favorited = true;
     }
   }

@@ -4,8 +4,8 @@ describe('HomePage', () => {
 
     // Define test blog card details
     let blogDetails = {
-        imageId: 2,
-        id: "the-commons",
+        id: "2",
+        slug: "the-commons",
         title: 'The Commons.',
         shortDesc: 'So when I first heard that LASO, a club at my school, was doing a skiing trip, I immediately signed up. I initially thought we’d go somewhere far from campus… but we went to the Commons, which is just behind Farley.'
     }
@@ -26,7 +26,7 @@ describe('HomePage', () => {
         cy.get('#the-commons #readMoreBtn').click();
 
         // confirm that url is updated and the blog post page displays 1 post
-        cy.url().should('include', blogDetails.imageId)
+        cy.url().should('include', blogDetails.slug)
         cy.get('#blogPost').its('length').should('be.gte', 1);
 
         // User goes back to home page

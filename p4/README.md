@@ -31,6 +31,21 @@
 - [JS - Replace](https://www.w3schools.com/jsref/jsref_replace.asp)
 - [Regex](https://www.w3schools.com/jsref/jsref_obj_regexp.asp)
 - [Integrating firebase](https://github.com/susanBuck/e28-fall19/issues/163)
+- [For of Loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iterationnp)
+- [Regex Validators](https://vuelidate.js.org/#sub-regex-based-validator)
+
+```
+const post = {
+    date: "12/13/2018",
+    title: "Philippines: La Mesa Eco Park",
+    slug: "philippines-la-mesa-eco-park",
+    shortDesc:
+        "Two summers ago, I visited the Philippines and went to was the La Mesa Eco Park! There were so many things to do at the park. You can go fishing, ride a horse carriage, and visit the Butterfly Haven!"
+    post:
+        "I went on a zip line and I was really scared. I mean, if I were to fall, no one could save me! But honestly, it was so worth it, especially because of the view. I could see almost the entire park! The trees were so green and the flowers were blooming. And on my left, there was the LaMesa Dam, which was really really really pretty! I will never ever forget it this experience! It made me feel like I was flying... but in a sitting positing with my hands firmly holding on to the harness for my life!"
+
+       
+```
 
 #### P3 Resources
 - Vue.js 

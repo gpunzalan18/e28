@@ -1,6 +1,6 @@
 <template>
   <div class="page" v-if="blogDetails">
-    <div v-for="item in blogDetails" :key="item.id">
+    <div v-for="item in blogDetails" :key="item.slug">
       <blog-card :cardDetails="item"></blog-card>
     </div>
   </div>

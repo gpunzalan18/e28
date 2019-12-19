@@ -10,16 +10,16 @@ export const blogModule = {
         setBlogDetails(state, payload) {
             state.blogDetails = payload;
         },
-        setBlogDetail(state, payload) {
-            state.blogDetail = payload;
+        addPost(state, payload) {
+            _.merge(state.blogDetails, payload)
         },
         setFavoriteBlogDetails(state) {
             let localStorageHandler = new app.LocalStorageHandler();
             let favoritesById = localStorageHandler.retrieveFavorites();
             let arr = [];
-            for (var i = 0; i < favoritesById.length; i++) {
-                let index = favoritesById[i];
-                let blogDetail = state.blogDetails[index - 1];
+            for (let slug of favoritesById) {
+                let blogDetail = _.find(state.blogDetails, { 'slug': slug })
+                if (!blogDetail) continue;
                 arr.push(blogDetail);
             }
             state.favoriteBlogDetails = arr;
@@ -32,12 +32,13 @@ export const blogModule = {
                 commit("setFavoriteBlogDetails");
             });
         },
-        setBlogDetail: function ({ commit }, id) {
-            commit("setBlogDetail", null)
-            app.axios.get(app.configURL.BLOG_DETAILS_API + '/' + id).then(response => {
-                commit("setBlogDetail", response.data);
-            });
-        },
+    },
+    getters: {
+        blogDetail(state) {
+            return function (slug) {
+                let blogDetail = _.find(state.blogDetails, { 'slug': slug })
+                return blogDetail
+            }
+        }
     }
-
 }
