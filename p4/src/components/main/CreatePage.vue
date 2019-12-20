@@ -20,7 +20,7 @@ export default {
           id: "title",
           type: "input",
           label: "Title *",
-          msg: "Must be between 1 and 50 characters"
+          msg: "Must be between 1 and 50 characters."
         },
         {
           id: "date",
@@ -32,7 +32,7 @@ export default {
           id: "slug",
           type: "input",
           label: "Slug * ",
-          msg: "Unique with dashes, letters, and numbers only. "
+          msg: "Unique slug with dashes, letters, and numbers. "
         },
         {
           id: "shortDesc",

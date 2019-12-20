@@ -70,13 +70,13 @@
         title: "Philippines: La Mesa Eco Park",
         slug: "philippines-la-mesa-eco-park",
         ```
-    - `A Snippet: `
+    - A Snippet: 
         ```
         "Two summers ago, I visited the Philippines and went to was the La Mesa Eco Park! There were so many things to do at the park. You can go fishing, ride a horse carriage, and visit the Butterfly Haven!"
         ```
-    - `Remaining Content`
+    - Remaining Content
         ```
         "I went on a zip line and I was really scared. I mean, if I were to fall, no one could save me! But honestly, it was so worth it, especially because of the view. I could see almost the entire park! The trees were so green and the flowers were blooming. And on my left, there was the LaMesa Dam, which was really really really pretty! I will never ever forget it this experience! It made me feel like I was flying... but in a sitting positing with my hands firmly holding on to the harness for my life!"
         ```
-- Please note that when a user saves a new post, the associated the image is randomly selected in the backgound to maintain consistency. 
-- Additionally, I am using only one firebase server, which means that testing is using the same one. You can find the corresponing test for this in `CreatePageSpec.js`. 
+- Please note that when saving a new post, an image is randomly selected in the backgound. 
+- I am using only one firebase server, which means that testing is using the same one. You can find the corresponing test for this in `CreatePageSpecs.js` when you can easily modify slug. 
