@@ -13,7 +13,7 @@ describe('CreatePage.vue', () => {
             }
         })
 
-        const exist = wrapper.find('h3').exists();
+        const exist = wrapper.find('h4').exists();
         expect(exist).to.equal(true)
         expect(wrapper.text()).to.include('Fill out the form below to create a post.');
 

@@ -4,7 +4,8 @@ import VueRouter from 'vue-router';
 import HomePage from './components/main/HomePage.vue';
 import FavoritesPage from './components/main/FavoritesPage.vue';
 import BlogpostPage from './components/main/BlogpostPage.vue';
-import CreatePage from './components/main/CreatePage.vue'
+import CreatePage from './components/main/CreatePage.vue';
+import PageNotFound from './components/main/PageNotFound.vue';
 import store from './store';
 import Vuelidate from 'vuelidate';
 
@@ -23,7 +24,7 @@ const routes = [
     { path: '/favorites', component: FavoritesPage, name: "favorites" },
     { path: '/create', component: CreatePage, name: "create" },
     { path: '/blogpost/:slug', component: BlogpostPage, name: "blogpost", props: true },
-    // { path: '*', component: HomePage }
+    { path: '*', component: PageNotFound }
 ]
 
 const router = new VueRouter({

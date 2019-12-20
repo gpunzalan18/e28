@@ -1,11 +1,7 @@
 <template>
   <div class="page">
-    <h3>Fill out the form below to create a post.</h3>
-    <br />
-    <br />
+    <h4 class="padding-bottom-27">Fill out the form below to create a post.</h4>
     <user-input :blogPostForm="blogPostForm"></user-input>
-    <br />
-    <br />
   </div>
 </template>
 
@@ -20,7 +16,12 @@ export default {
   data: function() {
     return {
       blogPostForm: [
-        { id: "title", type: "input", label: "Title *", msg: "" },
+        {
+          id: "title",
+          type: "input",
+          label: "Title *",
+          msg: "Must be between 1 and 50 characters"
+        },
         {
           id: "date",
           type: "input",
@@ -31,14 +32,14 @@ export default {
           id: "slug",
           type: "input",
           label: "Slug * ",
-          msg: "Please use dashes, letters, and numbers only. "
+          msg: "Unique with dashes, letters, and numbers only. "
         },
         {
           id: "shortDesc",
           type: "textarea",
           rows: "6",
           label: "A Snippet *",
-          msg: "Must be between 150 to 200 characters."
+          msg: "Must be between 1 and 200 characters."
         },
         {
           id: "post",

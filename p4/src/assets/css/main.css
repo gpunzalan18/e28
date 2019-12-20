@@ -33,3 +33,7 @@ button a {
     background-color: rgb(129, 127, 127) !important;
     pointer-events: none;
 }
+
+.padding-bottom-27{
+    padding-bottom: 27px;
+}

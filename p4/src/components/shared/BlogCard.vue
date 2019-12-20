@@ -3,7 +3,7 @@
     <img :src="image" :alt="title" class="cardImg" />
     <h3>{{title}}</h3>
     <p>{{shortDesc}}</p>
-    <div :id="id" class="btn-group btn-group-sm" role="group" aria-label="...">
+    <div :id="cardDetails.slug" class="btn-group btn-group-sm" role="group" aria-label="...">
       <router-link
         id="readMoreBtn"
         type="button"
@@ -45,15 +45,6 @@ export default {
       } else {
         return "Add to Favorites";
       }
-    },
-    id: function() {
-      let id = this.title
-        .toString()
-        .replace(/[,’!:.]/g, "")
-        .replace(/ /g, "-")
-        .toLowerCase();
-      console.log(id);
-      return id;
     }
   },
   methods: {

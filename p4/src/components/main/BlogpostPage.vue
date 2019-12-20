@@ -5,9 +5,9 @@
       <img :src="image" class="post" />
     </div>
     <div class="col-md-6">
-      <h5 style="color:gray">{{date}}</h5>
+      <h5 style="color:gray">{{blogDetail.date}}</h5>
       <p>{{blogDetail.shortDesc}}</p>
-      <p>{{body}}</p>
+      <p>{{blogDetail.post}}</p>
       <button
         id="favoritesBtn"
         type="button"
@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import blogPosts from "../../data/blogposts.json";
 import * as app from "../../config";
 
 export default {
@@ -28,7 +27,6 @@ export default {
   props: ["slug"],
   data: function() {
     return {
-      blogPosts: blogPosts.data,
       favorited: false,
       favoritesById: null
     };
@@ -42,12 +40,6 @@ export default {
       let blogDetail = this.$store.getters.blogDetail(this.slug);
       let image = require("../../assets/images/image" + blogDetail.id + ".jpg");
       return image;
-    },
-    body: function() {
-      return this.blogDetail.post;
-    },
-    date: function() {
-      return this.blogDetail.date;
     },
     buttonLabel: function() {
       if (this.favorited) {

@@ -1,5 +1,3 @@
-// https://docs.cypress.io/api/introduction/api.html
-
 describe('CreatePage', () => {
 
     const post = {
@@ -16,7 +14,7 @@ describe('CreatePage', () => {
     it('Visits the page and sees a form to create a post', () => {
         cy.visit('/create');
         cy.contains('h1', 'Grace\'s Blog');
-        cy.contains('h3', 'Fill out the form below to create a post.')
+        cy.contains('h4', 'Fill out the form below to create a post.')
         cy.get('.form-control').its('length').should('be.gte', 5);
     })
 
@@ -30,6 +28,8 @@ describe('CreatePage', () => {
         cy.contains('div', 'Please enter a valid answer.');
 
         cy.get('#saveBtn').click();
+
+        // Indicates the the user did not get redirected
         cy.url().should('include', 'create')
 
     })
@@ -44,11 +44,11 @@ describe('CreatePage', () => {
 
         cy.get('#saveBtn').click();
 
+        // Indicates the the user is redirected to see new post
         cy.url().should('include', post.slug)
 
+        // home page includes the newly added post
         cy.get('#home').click();
         cy.get('.blogCard').contains(post.title);
-
-
     })
 })

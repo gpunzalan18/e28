@@ -28,7 +28,6 @@
       </div>
       <div>{{input.msg}}</div>
     </div>
-
     <div class="col-xs-8">
       <button
         type="button"
@@ -45,15 +44,14 @@
 import {
   required,
   minLength,
-  maxLength
-  //   alphaNum
+  maxLength,
+  helpers
 } from "vuelidate/lib/validators";
-import { helpers } from "vuelidate/lib/validators";
 
 import * as app from "../../config";
 
 let post = {
-  id: 11,
+  id: null,
   date: "",
   title: "",
   slug: "",
@@ -62,7 +60,13 @@ let post = {
 };
 
 const slugValidator = helpers.regex("alpha", /^[a-zA-Z0-9-]*$/);
-const dateValidator = helpers.regex("alpha", /^[0-9/]*$/);
+const dateValidator = date => {
+  let regexPattern = /^(((0)[0-9])|((1)[0-2]))(\/)([0-2][0-9]|(3)[0-1])(\/)\d{4}$/i;
+  if (typeof date === "undefined" || date === null || date === "") {
+    return true;
+  }
+  return regexPattern.test(date);
+};
 
 export default {
   name: "UserInput",
@@ -70,21 +74,15 @@ export default {
   data: function() {
     return {
       post: post,
-      formHasErrors: false,
       validationMsg: "Please enter a valid answer."
     };
-  },
-  watch: {
-    "$v.$anyError": function() {
-      this.formHasErrors = this.$v.$anyError && this.$v.$anyError;
-      console.log(this.$v);
-    }
   },
   validations: {
     post: {
       title: {
         required,
-        minLength: minLength(1)
+        minLength: minLength(1),
+        maxLength: maxLength(50)
       },
       date: {
         required,
@@ -101,7 +99,7 @@ export default {
       },
       shortDesc: {
         required,
-        minLength: minLength(150),
+        minLength: minLength(1),
         maxLength: maxLength(200)
       },
       post: {
@@ -111,8 +109,9 @@ export default {
   },
   methods: {
     handleSubmit: function() {
-      if (!this.formHasErrors && this.$v.$anyDirty) {
-        this.post.toString().toLowerCase();
+      if (!this.$v.$anyError && this.$v.$anyDirty) {
+        this.post.slug.toString().toLowerCase();
+        this.post.id = Math.floor(Math.random() * 5 + 11);
         app.axios
           .post(app.configURL.BLOG_DETAILS_API, this.post)
           .then(response => {
@@ -127,10 +126,17 @@ export default {
             });
           });
       }
+    },
+    resetPostForm() {
+      this.post.date = "";
+      this.post.title = "";
+      this.post.slug = "";
+      this.post.shortDesc = "";
+      this.post.post = "";
     }
   },
   mounted: function() {
-    console.log(this.$v);
+    this.resetPostForm();
   }
 };
 </script>
